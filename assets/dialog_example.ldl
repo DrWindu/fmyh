@@ -1,0 +1,79 @@
+{
+	id = npc_greet
+	conditions = ""
+	line = ("NPC", "Hello, player !")
+	effects = ()
+	next = (hub)
+}
+
+{
+	id = hub
+	conditions = ""
+	line = ("NPC", "What do you want ?")
+	effects = ()
+	next = (ask_how_0, buy_doodad_0, sell_doodad_0, say_bye_0)
+}
+
+{
+	id = ask_how_0
+	conditions = "@Pick"
+	line = ("PC", "How are you, NPC ?")
+	effects = ()
+	next = (ask_how_1, ask_how_pissed)
+}
+
+{
+	id = ask_how_1
+	conditions = "!say_fine"
+	line = ("NPC", "I'm fine !")
+	effects = ("say_fine")
+	next = (hub)
+}
+
+{
+	id = ask_how_pissed
+	conditions = "say_fine"
+	line = ("NPC", "Like I said, I'm fine.")
+	effects = ()
+	next = (hub)
+}
+
+{
+	id = buy_doodad_0
+	conditions = "@Pick"
+	line = ("PC", "I'll take this doodad.")
+	effects = ()
+	next = (buy_doodad_do, buy_doodad_cant)
+}
+
+{
+	id = buy_doodad_do
+	conditions = (>Munies[9])
+	line = ("NPC", "Of course sir !")
+	effects = (-Munies[10], +Doodad[1])
+	next = (hub)
+}
+
+{
+	id = buy_doodad_cant
+	conditions = (<Munies[10])
+	line = ("PC", "Wut ?! 10 munies ?! This is outrageous ! I don't have that kind of munies.")
+	effects = ()
+	next = (hub)
+}
+
+{
+	id = sell_doodad_0
+	conditions = "@Pick >Doodad[0]"
+	line = ("PC", "I sell you this doodad.")
+	effects = (-Doodad[1], +Munies[5])
+	next = (hub)
+}
+
+{
+	id = say_bye_0
+	conditions = "@Pick"
+	line = ("NPC", "Bye for now !")
+	effects = (npc_talked)
+	next = ()
+}

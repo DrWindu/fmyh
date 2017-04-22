@@ -28,9 +28,8 @@ using namespace lair;
 
 /* A dialog is a graph of conditional lines with effects.
  *
- * A condition is either a propositional logic formula base
- * on (boolean) flags and (integer) value comparisons,
- * or merely a player choice.
+ * A condition is a propositional logic formula based on (boolean) flags
+ * and (integer) value comparisons, and may be flagged as a player choice.
  *
  * A line is a piece of text uttered by a character.
  *
@@ -42,8 +41,8 @@ using namespace lair;
  * Ids are like, just a number man. It's a string of symbols. It doesn't define
  * your true inner self, it's just a convenient way to point at something.
  *
- * Conditions is a string, defined by :
- * CONDITIONS: 'Pick' | LOGIC
+ * Conditions is a possibly empty string, defined by :
+ * CONDITIONS: [ "@Pick" ] [ LOGIC ]
  * LOGIC: '(' LOGIC ')'    | 'NOT' LOGIC
  *      | LOGIC 'OR' LOGIC | LOGIC 'AND' LOGIC
  *      | '>'STATUS        | '<'STATUS         | '='STATUS

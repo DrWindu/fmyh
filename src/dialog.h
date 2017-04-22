@@ -31,15 +31,13 @@ using namespace lair;
  * A condition is a propositional logic formula based on (boolean) flags
  * and (integer) value comparisons, and may be flagged as a player choice.
  *
- * A line is a piece of text uttered by a character.
+ * Lines is a sequence of utterances tied to characters.
  *
  * An effect is list of flags being set or unset, or +/-/= changes in values.
  *
- * Syntax-wise, each dialog occupies an .ldl file as a list of nodes. Each node
- * is a map with the following keys: id, conditions, line, effects, next.
- *
- * Ids are like, just a number man. It's a string of symbols. It doesn't define
- * your true inner self, it's just a convenient way to point at something.
+ * Syntax-wise, each dialog occupies an .ldl file as map of nodes, keyed by id.
+ * Each node is itself a map using the keys: conditions, lines, effects, next.
+ * Empty entries may be ommited.
  *
  * Conditions is a possibly empty string, defined by :
  * CONDITIONS: [ "@Pick" ] [ LOGIC ]
@@ -52,14 +50,15 @@ using namespace lair;
  * VAR is an in-game variable name [A-Za-z_].
  * VAL is an integer value.
  *
- * Line is a 2-list of strings : (character, text).
+ * Lines is either a list of or just one pair of strings : [character, text].
+ * In the former case, each line is read sequentially.
  *
  * Effects is a list of strings, each defined by :
  * EFFECT: '+'CHANGE | '-'CHANGE | '='CHANGE
  *       | FLAG      | '!'FLAG
  * CHANGE is the same as a STATUS, FLAG is like above.
  *
- * Next is a list of ids for possible followup lines.
+ * Next is a list of ids of possible followup nodes, sorted by priority.
  */
 
 class Dialog : {

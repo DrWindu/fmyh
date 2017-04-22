@@ -36,7 +36,7 @@ buy_doodad_0 = {
 buy_doodad_do = {
 	conditions = ">Munies[9]"
 	lines = ("NPC", "Of course sir !")
-	effects = (-Munies[10], +Doodad[1])
+	effects = ("-Munies[10]", "+Doodad[1]")
 	next = (hub)
 }
 
@@ -52,7 +52,7 @@ buy_doodad_cant = {
 sell_doodad_0 = {
 	conditions = "@Pick >Doodad[0]"
 	lines = ("PC", "I sell you this doodad.")
-	effects = (-Doodad[1], +Munies[5])
+	effects = ("-Doodad[1]", "+Munies[5]")
 	next = (hub)
 }
 

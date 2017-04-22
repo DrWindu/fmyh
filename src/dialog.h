@@ -1,0 +1,75 @@
+/*
+ *  Copyright (C) 2015, 2016 Simon Boyé
+ *
+ *  This file is part of lair.
+ *
+ *  lair is free software: you can redistribute it and/or modify it
+ *  under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  lair is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with lair.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+#ifndef _LAIR_DEMO_TEMPLATE_DIALOG_H
+#define _LAIR_DEMO_TEMPLATE_DIALOG_H
+
+
+using namespace lair;
+
+
+/* A dialog is a graph of conditional lines with effects.
+ *
+ * A condition is either a propositional logic formula base
+ * on (boolean) flags and (integer) value comparisons,
+ * or merely a player choice.
+ *
+ * A line is a piece of text uttered by a character.
+ *
+ * An effect is list of flags being set or unset, or +/-/= changes in values.
+ *
+ * Syntax-wise, each dialog occupies an .ldl file as a list of nodes. Each node
+ * is a map with the following keys: id, conditions, line, effects, next.
+ *
+ * Ids are like, just a number man. It's a string of symbols. It doesn't define
+ * your true inner self, it's just a convenient way to point at something.
+ *
+ * Conditions is a string, defined by :
+ * CONDITIONS: 'Pick' | LOGIC
+ * LOGIC: '(' LOGIC ')'    | 'NOT' LOGIC
+ *      | LOGIC 'OR' LOGIC | LOGIC 'AND' LOGIC
+ *      | '>'STATUS        | '<'STATUS         | '='STATUS
+ *      | FLAG             | '!'FLAG
+ * STATUS: VAR'['VAL']'
+ * FLAG is a flag name [A-Za-z_].
+ * VAR is an in-game variable name [A-Za-z_].
+ * VAL is an integer value.
+ *
+ * Line is a 2-list of strings : (character, text).
+ *
+ * Effects is a list of strings, each defined by :
+ * EFFECT: '+'CHANGE | '-'CHANGE | '='CHANGE
+ *       | FLAG      | '!'FLAG
+ * CHANGE is the same as a STATUS, FLAG is like above.
+ *
+ * Next is a list of ids for possible followup lines.
+ */
+
+class Dialog : {
+public:
+	Dialog();
+	virtual ~Dialog();
+
+protected:
+};
+
+
+#endif

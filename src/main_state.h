@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015, 2016 Simon Boyé
+ *  Copyright (C) 2015, 2016 the authors (see AUTHORS)
  *
  *  This file is part of lair.
  *
@@ -19,8 +19,8 @@
  */
 
 
-#ifndef _LAIR_DEMO_TEMPLATE_MAIN_STATE_H
-#define _LAIR_DEMO_TEMPLATE_MAIN_STATE_H
+#ifndef MAIN_STATE_H
+#define MAIN_STATE_H
 
 
 #include <lair/core/signal.h>
@@ -36,8 +36,17 @@
 #include <lair/ec/entity.h>
 #include <lair/ec/entity_manager.h>
 #include <lair/ec/sprite_component.h>
+#include <lair/ec/collision_component.h>
 #include <lair/ec/bitmap_text_component.h>
 #include <lair/ec/tile_layer_component.h>
+
+#include "settings.h"
+#include "gui.h"
+#include "level.h"
+
+
+#define FRAMERATE 60
+#define TICKRATE  60
 
 
 using namespace lair;
@@ -65,10 +74,12 @@ public:
 
 	void resizeEvent();
 
+	EntityRef getEntity(const String& name, const EntityRef& ancestor = EntityRef());
+
 	bool loadEntities(const Path& path, EntityRef parent = EntityRef(),
 	                  const Path& cd = Path());
 
-protected:
+public:
 	// More or less system stuff
 
 	RenderPass                 _mainPass;
@@ -76,6 +87,7 @@ protected:
 	EntityManager              _entities;
 	SpriteRenderer             _spriteRenderer;
 	SpriteComponentManager     _sprites;
+	CollisionComponentManager  _collisions;
 	BitmapTextComponentManager _texts;
 	TileLayerComponentManager  _tileLayers;
 //	AnimationComponentManager  _anims;
@@ -83,20 +95,37 @@ protected:
 
 	SlotTracker _slotTracker;
 
+	Settings _settings;
+
 	OrthographicCamera _camera;
 
 	bool        _initialized;
 	bool        _running;
 	InterpLoop  _loop;
+	int64       _prevFrameTime;
 	int64       _fpsTime;
 	unsigned    _fpsCount;
 
 	Input*      _quitInput;
+	Input*      _okInput;
+	Input*      _upInput;
+	Input*      _downInput;
+	Input*      _leftInput;
+	Input*      _rightInput;
 
+	Gui         _gui;
+
+	LevelSP     _campLevel;
 	TileMapAspectSP _tileMap;
 
-	EntityRef   _modelRoot;
-	EntityRef   _tileLayer;
+	EntityRef   _models;
+	EntityRef   _scene;
+	EntityRef   _guiLayer;
+
+	EntityRef   _player;
+	Direction   _playerDir;
+
+	int _debugCounter;
 };
 
 

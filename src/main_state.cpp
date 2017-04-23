@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2015, 2016 Simon Boyé
+ *  Copyright (C) 2015, 2016 the authors (see AUTHORS)
  *
  *  This file is part of lair.
  *
@@ -49,10 +49,21 @@ MainState::MainState(Game* game)
       _initialized(false),
       _running(false),
       _loop(sys()),
+      _prevFrameTime(-1),
       _fpsTime(0),
       _fpsCount(0),
 
-      _quitInput(nullptr) {
+      _quitInput(nullptr),
+      _okInput(nullptr),
+      _upInput(nullptr),
+      _downInput(nullptr),
+      _leftInput(nullptr),
+      _rightInput(nullptr),
+
+      _gui(this),
+
+      _debugCounter(0)
+{
 
 	_entities.registerComponentManager(&_sprites);
 	_entities.registerComponentManager(&_texts);
@@ -65,9 +76,23 @@ MainState::~MainState() {
 
 
 void MainState::initialize() {
+	Path settingsLogicPath = "settings.ldl";
+	Path settingsRealPath = game()->dataPath() / settingsLogicPath;
+	Path::IStream in(settingsRealPath.native().c_str());
+	if(in.good()) {
+		log().info("Read settings \"", settingsRealPath, "\"...");
+		ErrorList errors;
+		LdlParser parser(&in, settingsLogicPath.utf8String(), &errors, LdlParser::CTX_MAP);
+		game()->serializer().read(parser, _settings);
+		errors.log(log());
+	}
+	else {
+		log().error("Failed to read settings (\"", settingsLogicPath, "\").");
+	}
+
 	_loop.reset();
-	_loop.setTickDuration(    ONE_SEC /  60);
-	_loop.setFrameDuration(   ONE_SEC /  60);
+	_loop.setTickDuration( ONE_SEC /  TICKRATE);
+	_loop.setFrameDuration(ONE_SEC /  FRAMERATE);
 	_loop.setMaxFrameDuration(_loop.frameDuration() * 3);
 	_loop.setFrameMargin(     _loop.frameDuration() / 2);
 
@@ -77,26 +102,32 @@ void MainState::initialize() {
 	_quitInput = _inputs.addInput("quit");
 	_inputs.mapScanCode(_quitInput, SDL_SCANCODE_ESCAPE);
 
-	_modelRoot = _entities.createEntity(_entities.root(), "modelRoot");
+	_okInput = _inputs.addInput("ok");
+	_inputs.mapScanCode(_okInput, SDL_SCANCODE_SPACE);
+	_inputs.mapScanCode(_okInput, SDL_SCANCODE_RETURN);
+	_inputs.mapScanCode(_okInput, SDL_SCANCODE_RETURN2);
 
-	// TODO: load stuff.
-	AssetSP tileMapAsset = loader()->load<TileMapLoader>("map.json")->asset();
-	_tileMap = tileMapAsset->aspect<TileMapAspect>();
+	_upInput = _inputs.addInput("up");
+	_inputs.mapScanCode(_upInput, SDL_SCANCODE_UP);
 
-	_tileLayer = _entities.createEntity(_entities.root(), "tile_layer");
-	TileLayerComponent* tileLayerComp = _tileLayers.addComponent(_tileLayer);
-	tileLayerComp->setTileMap(_tileMap);
-//	_tileLayer.place(Vector3(120, 90, .5));
+	_downInput = _inputs.addInput("down");
+	_inputs.mapScanCode(_downInput, SDL_SCANCODE_DOWN);
 
+	_leftInput = _inputs.addInput("left");
+	_inputs.mapScanCode(_leftInput, SDL_SCANCODE_LEFT);
+
+	_rightInput = _inputs.addInput("right");
+	_inputs.mapScanCode(_rightInput, SDL_SCANCODE_RIGHT);
+
+	// Load entities
 	loadEntities("entities.ldl", _entities.root());
 
-	EntityRef sprite = _entities.findByName("sprite");
-	EntityRef text   = _entities.findByName("text");
+	_models   = getEntity("__models__");
+	_scene    = getEntity("scene");
+	_guiLayer = getEntity("gui");
 
-	if(sprite.isValid())
-		log().info("Entity \"", sprite.name(), "\" found.");
-	if(text.isValid())
-		log().info("Entity \"", text.name(), "\" found.");
+	_campLevel = std::make_shared<Level>(this, "camp.json");
+	_campLevel->preload();
 
 	loader()->load<SoundLoader>("sound.ogg");
 	//loader()->load<MusicLoader>("music.ogg");
@@ -106,11 +137,15 @@ void MainState::initialize() {
 	// Set to true to debug OpenGL calls
 	renderer()->context()->setLogCalls(false);
 
+	_gui.initialize();
+
 	_initialized = true;
 }
 
 
 void MainState::shutdown() {
+	_gui.shutdown();
+
 	_slotTracker.disconnectAll();
 
 	_initialized = false;
@@ -131,7 +166,9 @@ void MainState::run() {
 	do {
 		switch(_loop.nextEvent()) {
 		case InterpLoop::Tick:
+			_entities.setPrevWorldTransforms();
 			updateTick();
+			_entities.updateWorldTransforms();
 			break;
 		case InterpLoop::Frame:
 			updateFrame();
@@ -153,7 +190,11 @@ Game* MainState::game() {
 
 
 void MainState::startGame() {
-	// TODO: Setup game
+	_player = _entities.cloneEntity(getEntity("player_model"), _scene, "player");
+
+	_campLevel->initialize();
+	_campLevel->start("spawn");
+
 	//audio()->playMusic(assets()->getAsset("music.ogg"));
 	audio()->playSound(assets()->getAsset("sound.ogg"), 2);
 }
@@ -163,19 +204,139 @@ void MainState::updateTick() {
 	loader()->finalizePending();
 
 	_inputs.sync();
-	_entities.setPrevWorldTransforms();
+
+//	if(_state == STATE_PLAY) {
+		// Player movement
+		Vector2 offset(0, 0);
+		if(_upInput->isPressed()) {
+			offset(1) += 1;
+			_playerDir  = UP;
+		}
+		if(_leftInput->isPressed()) {
+			offset(0) -= 1;
+			_playerDir  = LEFT;
+		}
+		if(_downInput->isPressed()) {
+			offset(1) -= 1;
+			_playerDir  = DOWN;
+		}
+		if(_rightInput->isPressed()) {
+			offset(0) += 1;
+			_playerDir  = RIGHT;
+		}
+
+		Vector2 lastPlayerPos = _player.translation2();
+		float playerSpeed = 10 * float(TILE_SIZE) / float(TICKRATE);
+		if(!offset.isApprox(Vector2::Zero())) {
+			_player.translation2() += offset.normalized() * playerSpeed;
+		}
+
+//		_level->computeCollisions();
+
+//		// Level logic
+//		HitEventQueue hitQueue;
+//		_collisions.findCollisions(hitQueue);
+////		for(const HitEvent& hit: hitQueue)
+////			dbgLogger.debug("hit: ", hit.entities[0].name(), ", ", hit.entities[1].name());
+
+//		EntityRef useEntity;
+//		if(_useInput->justPressed()) {
+//			std::deque<EntityRef> useQueue;
+//			Vector2 pos = _player.worldTransform().translation().head<2>();
+//			_collisions.hitTest(useQueue, pos, HIT_USE_FLAG);
+
+//			if(useQueue.empty()) {
+//				float o = 28;
+//				Vector2 offset((_playerDir == LEFT)? -o: (_playerDir == RIGHT)? o: 0,
+//				               (_playerDir == DOWN)? -o: (_playerDir == UP   )? o: 0);
+//				_collisions.hitTest(useQueue, pos + offset, HIT_USE_FLAG);
+//			}
+
+//			if(!useQueue.empty()) {
+//				useEntity = useQueue.front();
+//				dbgLogger.debug("use: ", useEntity.name());
+//			}
+//		}
+
+//		updateTriggers(hitQueue, useEntity);
+
+//		// Bump player
+//		for(HitEvent& hit: hitQueue) {
+//			CollisionComponent* cc = _collisions.get(hit.entities[1]);
+//			if(cc && hit.entities[0] == _player && cc->hitMask() & HIT_SOLID_FLAG) {
+//				CollisionComponent* pcc = _collisions.get(_player);
+//				updatePenetration(pcc, pcc->worldAlignedBox(), cc->worldAlignedBox());
+//			}
+//		}
+
+//		CollisionComponent* pColl = _collisions.get(_player);
+//		Vector2  bump(0, 0);
+//		bump(0) += std::max(0.01f + pColl->penetration(LEFT),  0.f);
+//		bump(0) -= std::max(0.01f + pColl->penetration(RIGHT), 0.f);
+//		bump(1) += std::max(0.01f + pColl->penetration(DOWN),  0.f);
+//		bump(1) -= std::max(0.01f + pColl->penetration(UP),    0.f);
+//		_player.translate(bump);
+
+//		if(!_player.translation2().isApprox(lastPlayerPos)) {
+//			float prevAnim = _playerAnim;
+//			_playerAnim += _playerAnimSpeed / float(TICKRATE);
+//			orientPlayer(_playerDir, 1 + int(_playerAnim) % 2);
+
+//			if(int(prevAnim) % 2 != int(_playerAnim) % 2)
+//				playSound("footstep.wav");
+//		}
+//		else {
+//			_playerAnim = 0;
+//			orientPlayer(_playerDir);
+//		}
+
+//		_overlay.setEnabled(false);
+//	}
 
 	if(_quitInput->justPressed()) {
 		quit();
 	}
 
-	// TODO: Game update.
+	if(_okInput->justPressed()) {
+		switch(_debugCounter % 4) {
+		case 0:
+			_gui.showDialog();
+			break;
+		case 1:
+			_gui.showCharacter();
+			break;
+		case 2:
+			_gui.hideDialog();
+			break;
+		case 3:
+			_gui.hideCharacter();
+			break;
+		}
 
-	_entities.updateWorldTransforms();
+		++_debugCounter;
+	}
 }
 
 
 void MainState::updateFrame() {
+	double elapsedSec = (_prevFrameTime < 0)? 0: double(_loop.frameTime() - _prevFrameTime) / double(ONE_SEC);
+
+	Vector2 playerPos = _player.interpTransform(_loop.frameInterp()).translation().head<2>();
+	Vector2 viewSize(window()->width(), window()->height());
+	Box3 viewBox((Vector3() << playerPos - viewSize / 2, 0).finished(),
+	             (Vector3() << playerPos + viewSize / 2, 1).finished());
+	_camera.setViewBox(viewBox);
+
+	Transform guiTrans = _guiLayer.transform();
+	guiTrans.matrix().col(3).head<2>() = viewBox.min().head<2>();
+	guiTrans.matrix()(0, 0) = (float(window()->width()) / 1920.0f);
+	guiTrans.matrix()(1, 1) = guiTrans.matrix()(0, 0);
+	_guiLayer.transform() = guiTrans;
+	_guiLayer.updateWorldTransform();
+	_guiLayer.setPrevWorldTransform();
+
+	_gui.updateAnimation(elapsedSec);
+
 	// Rendering
 	Context* glc = renderer()->context();
 
@@ -204,14 +365,25 @@ void MainState::updateFrame() {
 		_fpsTime  = now;
 		_fpsCount = 0;
 	}
+
+	_prevFrameTime = _loop.frameTime();
 }
 
 
 void MainState::resizeEvent() {
-	Box3 viewBox(Vector3::Zero(),
-	             Vector3(window()->width()  / 4., // Big pixels
-	                     window()->height() / 4., 1));
+	// TODO: Support aspect ratio other that 16:9 without stretching.
+	Box3 viewBox(Vector3(0, 0, 0),
+	             Vector3(1920, 1080, 1));
 	_camera.setViewBox(viewBox);
+}
+
+
+EntityRef MainState::getEntity(const String& name, const EntityRef& ancestor) {
+	EntityRef entity = _entities.findByName(name, ancestor);
+	if(!entity.isValid()) {
+		log().error("Entity \"", name, "\" not found.");
+	}
+	return entity;
 }
 
 

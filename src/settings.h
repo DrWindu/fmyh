@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2016 Simon Boyé
+ *  Copyright (C) 2015, 2016 The authors (see AUTHORS).
  *
  *  This file is part of lair.
  *
@@ -19,21 +19,30 @@
  */
 
 
-#include <cstdlib>
-
-#include "game.h"
-#include "splash_state.h"
-#include "main_state.h"
+#ifndef SETTINGS_H
+#define SETTINGS_H
 
 
-int main(int argc, char** argv) {
-	Game game(argc, argv);
-	game.initialize();
+#include <lair/core/lair.h>
+#include <lair/core/property.h>
 
-//	game.setNextState(game.splashState());
-	game.setNextState(game.mainState());
-	game.run();
 
-	game.shutdown();
-	return EXIT_SUCCESS;
-}
+using namespace lair;
+
+
+class Settings {
+public:
+	Settings();
+
+	const PropertyList& properties() const;
+
+public:
+	float   guiTransitionDuration;
+	Vector2 dialogVisiblePos;
+	Vector2 dialogHiddenPos;
+	Vector2 characterVisiblePos;
+	Vector2 characterHiddenPos;
+};
+
+
+#endif

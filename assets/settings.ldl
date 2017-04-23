@@ -1,0 +1,5 @@
+gui_transition_duration = 0.2
+dialog_visible_pos      = Vector(430, 40)
+dialog_hidden_pos       = Vector(430, -448)
+character_visible_pos   = Vector(0, 0)
+character_hidden_pos    = Vector(-438, 0)

@@ -1,20 +1,63 @@
-sprite = {
-	transform = [ translate(120, 90, .5), rotate(45), scale(.5) ]
-	sprite = {
-		texture       = "lair.png"
-		tile_grid     = Vector(3, 2)
-		tile_index    = 3
-		anchor        = Vector(0.5, 0.5)
-		texture_flags = "nearest"
+__models__ = {
+	enabled = false
+	children = {
+		player_model = {
+			transform = translate(0, 0, 0.5)
+			sprite = {
+				texture       = "lair.png"
+				tile_grid     = Vector(3, 2)
+				tile_index    = 0
+				anchor        = Vector(0.5, 0.5)
+			}
+		}
+		fire_model = {
+			sprite = {
+				texture = "fire.png"
+				blend = alpha
+				texture_flags = "bilinear_no_mipmap | clamp"
+			}
+		}
 	}
 }
 
-text = {
-	transform = translate(160, 90, .5)
-	text = {
-		font   = "droid_sans_24.json"
-		text   = "Lair\nEngine\n.$.¢.€.𐍈.\névènement"
-		color  = Vector(0.75, 0.1, 0.1, 1)
-		anchor = Vector(0, 0.5)
+scene = {
+	transform = translate(0, 0, 0)
+}
+
+gui = {
+	transform = translate(0, 0, 0.9)
+	children = {
+		dialog = {
+			transform = translate(0, 0, 0)
+			sprite = {
+				texture       = "dialog_background.png"
+				texture_flags = "bilinear_no_mipmap"
+			}
+			children = {
+				dialog_text = {
+					transform = [ translate(40, 400, .05), scale(2) ]
+					text = {
+						font   = "droid_sans_24.json"
+						size   = Vector(685, 400)
+						text   = "Hello"
+//						text   = """Maiores repellendus sapiente pariatur quis doloremque. Modi beatae fuga quasi id et debitis animi voluptatem. Est quo itaque et pariatur recusandae est. Quia eum quis blanditiis unde qui ut praesentium. Facilis at sit quo totam.
+//Dicta recusandae ducimus officia qui. Omnis perferendis placeat recusandae nemo. Fugiat blanditiis aspernatur maxime beatae provident totam.
+//Ea labore aut tempora id doloribus harum. Magni dolor magnam voluptatum numquam iste. Excepturi fugit veritatis occaecati ex molestiae id."""
+						color  = Vector(0, 0, 0, 1)
+						anchor = Vector(0, 1)
+						blend  = alpha
+						texture_flags = "bilinear_no_mipmap | clamp"
+					}
+				}
+			}
+		}
+
+		gui_character = {
+			transform = translate(0, 0, 0)
+			sprite = {
+				texture       = "character.png"
+				texture_flags = "bilinear"
+			}
+		}
 	}
 }

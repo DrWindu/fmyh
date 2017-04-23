@@ -39,7 +39,11 @@ const PropertyList& GameConfig::properties() const {
 }
 
 const PropertyList& GameConfig::staticProperties() {
-	return GameConfigBase::staticProperties();
+	static PropertyList properties;
+	if(!properties.nProperties()) {
+		properties = GameConfigBase::staticProperties();
+	}
+	return properties;
 }
 
 

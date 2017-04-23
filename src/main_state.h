@@ -41,6 +41,7 @@
 #include <lair/ec/tile_layer_component.h>
 
 #include "settings.h"
+#include "components.h"
 #include "gui.h"
 #include "level.h"
 
@@ -48,11 +49,21 @@
 #define FRAMERATE 60
 #define TICKRATE  60
 
+#define HIT_PLAYER_FLAG  0x01
+#define HIT_TRIGGER_FLAG 0x02
+#define HIT_USE_FLAG     0x04
+#define HIT_SOLID_FLAG   0x08
 
 using namespace lair;
 
 
 class Game;
+
+
+typedef int (*Command)(MainState* state, EntityRef self, int argc, const char** argv);
+typedef std::unordered_map<std::string, Command> CommandMap;
+
+typedef std::unordered_map<Path, int, boost::hash<Path>> SoundMap;
 
 
 class MainState : public GameState {
@@ -72,7 +83,17 @@ public:
 	void updateTick();
 	void updateFrame();
 
+	void preloadSound(const Path& sound);
+	void playSound(const Path& sound);
+
 	void resizeEvent();
+
+	void exec(const std::string& cmd, EntityRef self = EntityRef());
+	int exec(int argc, const char** argv, EntityRef self = EntityRef());
+
+	void updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, bool disableCmds = false);
+
+	EntityRef createTrigger(EntityRef parent, const char* name, const Box2& box);
 
 	EntityRef getEntity(const String& name, const EntityRef& ancestor = EntityRef());
 
@@ -90,12 +111,15 @@ public:
 	CollisionComponentManager  _collisions;
 	BitmapTextComponentManager _texts;
 	TileLayerComponentManager  _tileLayers;
+	TriggerComponentManager    _triggers;
 //	AnimationComponentManager  _anims;
 	InputManager               _inputs;
 
 	SlotTracker _slotTracker;
 
-	Settings _settings;
+	Settings    _settings;
+	CommandMap  _commands;
+	SoundMap    _soundMap;
 
 	OrthographicCamera _camera;
 
@@ -116,7 +140,8 @@ public:
 	Gui         _gui;
 
 	LevelSP     _campLevel;
-	TileMapAspectSP _tileMap;
+
+	LevelSP     _level;
 
 	EntityRef   _models;
 	EntityRef   _scene;

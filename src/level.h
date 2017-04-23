@@ -33,13 +33,15 @@
 #include <lair/ec/entity.h>
 #include <lair/ec/collision_component.h>
 
+#include "components.h"
+
 
 using namespace lair;
 
 
 #define TILE_SET_WIDTH 8
 #define TILE_SET_HEIGHT 8
-#define TILE_SIZE 32
+#define TILE_SIZE 48
 
 class MainState;
 
@@ -49,6 +51,8 @@ Vector2i cellCoord(const Vector2& pos, float height);
 void updatePenetration(CollisionComponent* comp, const Box2& objBox, const Box2& otherBox);
 
 Box2 flipY(const Box2& box, float height);
+
+unsigned updateFlags(unsigned flags, const Json::Value& obj, const std::string& key);
 
 
 class Level {
@@ -74,10 +78,10 @@ public:
 	Box2 objectBox(const Json::Value& obj) const;
 
 	EntityRef createLayer(unsigned index, const char* name);
-//	EntityRef createTrigger(const Json::Value& obj, const std::string& name);
+	EntityRef createTrigger(const Json::Value& obj, const std::string& name);
 //	EntityRef createItem(const Json::Value& obj, const std::string& name);
 //	EntityRef createDoor(const Json::Value& obj, const std::string& name);
-//	EntityRef createSprite(const Json::Value& obj, const std::string& name);
+	EntityRef createEntity(const Json::Value& obj, const std::string& name);
 
 	const Path& path() { return _path; }
 	TileMap*    tileMap() { return _tileMap; }

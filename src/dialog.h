@@ -22,9 +22,9 @@
 #ifndef _LAIR_DEMO_TEMPLATE_DIALOG_H
 #define _LAIR_DEMO_TEMPLATE_DIALOG_H
 
+#include <lair/core/path.h>
 
 using namespace lair;
-
 
 /* A dialog is a graph of conditional lines with effects.
  *
@@ -61,12 +61,59 @@ using namespace lair;
  * Next is a list of ids of possible followup nodes, sorted by priority.
  */
 
-class Dialog : {
+// Conditions
+enum LType {
+	L_NOT, L_AND, L_OR,
+	C_GREATER, C_LESSER, C_EQUAL,
+	YFLAG, NFLAG
+};
+
+struct Logic {
+	LType t;
+
+	Logic& left;
+	Logic& right;
+
+	String name;
+	int val;
+};
+
+// Effects
+enum EType {
+	V_INCR, V_DECR, V_SET,
+	FLAG, UNFLAG
+};
+
+struct DEffect {
+	EType t;
+	String name;
+	int val;
+};
+
+// Line
+struct DLine {
+	String chara; //TODO: Replace with pic ?
+	String text;
+};
+
+// Nodes
+struct DNode {
+	String id;
+	bool choice;
+	Logic* cond;
+	std::vector<DLine> lines;
+	std::vector<DEffect> effects;
+	std::vector<DNode*> next;
+};
+
+class Dialog {
 public:
-	Dialog();
+	Dialog(const Path& filename);
 	virtual ~Dialog();
 
 protected:
+	DNode* _start;
+	
 };
 
 

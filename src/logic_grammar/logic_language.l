@@ -31,7 +31,7 @@
 
 [ \t\n]        { }
 
-.              { }
+.              { fprintf(stderr, "Yuck !\n"); }
 
 %%
 

@@ -38,23 +38,36 @@ void parseLogic (const String mess, DNode& n)
 void readDLine (LdlParser& p, std::vector<DLine>& lines)
 {
 	String dood, text;
-	ldlRead(p, dood);
-	ldlRead(p, text);
-	lines.push_back({dood, text});
+	bool ok = true;
+	ok = ok && ldlRead(p, dood);
+	ok = ok && ldlRead(p, text);
+	if(ok)
+		lines.push_back({dood, text});
 }
 
 void listDLines (LdlParser& p, DNode& n)
 {
+	if(p.valueType() != LdlParser::TYPE_LIST) {
+		p.error("Expected VarList, got ", p.valueTypeName());
+		p.skip();
+		return;
+	}
+
 	p.enter();
 	if (p.valueType() == LdlParser::TYPE_STRING)
 		readDLine(p, n.lines);
-	else while (p.valueType() != LdlParser::TYPE_END)
-	{
-		p.enter();
-		readDLine(p, n.lines);
-		p.leave();
+	else if(p.valueType() == LdlParser::TYPE_LIST) {
+		while (p.valueType() != LdlParser::TYPE_END)
+		{
+			p.enter();
+			readDLine(p, n.lines);
+			p.leave();
+		}
 	}
-
+	else {
+		p.error("Expected VarList or String, got ", p.valueTypeName());
+		p.skip();
+	}
 	p.leave();
 }
 
@@ -113,19 +126,34 @@ void listDEffects (LdlParser& p, DNode& n)
 void stackNexts (LdlParser& p, std::vector<String> next)
 {
 	//TODO: This.
+	p.skip();
 }
 
 Dialog::Dialog(const Path& filename)
 {
 	Path::IStream in(filename.native().c_str());
+	lairAssert(in.good());
 	ErrorList el;
 	LdlParser p(&in, filename.utf8String(), &el, LdlParser::CTX_MAP);
 
 	std::vector<DNode*> nodes;
 	std::vector<std::vector<String>> nexts;
 
+	if(p.valueType() != LdlParser::TYPE_MAP) {
+		p.error("Expected VarMap, got ", p.valueTypeName());
+		p.skip();
+		return;
+	}
+
+	p.enter();
 	while (p.valueType() != LdlParser::TYPE_END)
 	{
+		if(p.valueType() != LdlParser::TYPE_MAP) {
+			p.error("Expected VarMap, got ", p.valueTypeName());
+			p.skip();
+			continue;
+		}
+		
 		DNode* n = new DNode;
 		nodes.push_back(n);
 		nexts.push_back(std::vector<String>());
@@ -135,20 +163,31 @@ Dialog::Dialog(const Path& filename)
 		while (p.valueType() != LdlParser::TYPE_END)
 		{
 			String nkey = p.getKey();
-			if (nkey == "conditions")
-				parseLogic(p.getString(), *n);
+			if (nkey == "conditions") {
+				if(p.valueType() != LdlParser::TYPE_STRING) {
+					p.error("Expected String, got ", p.valueTypeName());
+					p.skip();
+				}
+				else {
+					String cond;
+					ldlRead(p, cond);
+					parseLogic(cond, *n);
+				}
+			}
 			else if (nkey == "lines")
 				listDLines(p, *n);
 			else if (nkey == "effects")
 				listDEffects(p, *n);
 			else if (nkey == "next")
 				stackNexts(p, nexts.back());
-			p.next();
+			else
+				p.skip();
 		}
 		p.leave();		
 	}
 
 	//TODO: Build the actual graph using nexts.
+	el.log(dbgLogger);
 
 	_start = nodes[0];
 }

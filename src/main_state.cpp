@@ -24,6 +24,7 @@
 #include <lair/core/json.h>
 
 #include "game.h"
+#include "dialog.h"
 #include "commands.h"
 
 #include "main_state.h"
@@ -177,6 +178,8 @@ void MainState::run() {
 	_fpsCount = 0;
 
 	startGame();
+
+	Dialog foo(game()->dataPath() / "dialog_example.ldl");
 
 	do {
 		switch(_loop.nextEvent()) {

@@ -1,6 +1,6 @@
 npc_greet = {
-	lines = ("NPC", "Hello, player !")
-	next = (hub)
+	lines = [ "NPC", "Hello, player !" ]
+	next = [ hub ]
 }
 
 hub = {
@@ -45,7 +45,7 @@ buy_doodad_cant = {
 	lines = (
 		("NPC", "That'll be 10 munies."),
 		("PC", "Wut ?! 10 munies ?! This is outrageous ! I don't have that kind of munies."),
-		("NPC, "Your problem, not mine.") )
+		("NPC", "Your problem, not mine.") )
 	next = (hub)
 }
 

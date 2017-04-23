@@ -837,7 +837,7 @@ YY_RULE_SETUP
 case 16:
 YY_RULE_SETUP
 #line 34 "logic_language.l"
-{ }
+{ fprintf(stderr, "Yuck !\n"); }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP

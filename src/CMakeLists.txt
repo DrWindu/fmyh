@@ -33,8 +33,10 @@ add_executable(${CMAKE_PROJECT_NAME}
 	main.cpp
 	settings.cpp
 	game.cpp
+	components.cpp
 	gui.cpp
 	level.cpp
+	commands.cpp
 	main_state.cpp
 	splash_state.cpp
 	dialog.cpp

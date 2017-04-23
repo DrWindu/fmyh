@@ -9,12 +9,22 @@ __models__ = {
 				tile_index    = 0
 				anchor        = Vector(0.5, 0.5)
 			}
+			collision = {
+				shape       = ABox{ min = Vector(-16, -16), size = Vector(32, 32) }
+				hit_mask    = 0x09
+				ignore_mask = 0x00
+			}
 		}
 		fire_model = {
 			sprite = {
-				texture = "fire.png"
-				blend = alpha
+				texture       = "fire.png"
+				blend         = alpha
 				texture_flags = "bilinear_no_mipmap | clamp"
+			}
+			collision = {
+				shape       = ABox{ min = Vector(-64, -64), size = Vector(128, 128) }
+				hit_mask    = 0x0a
+				ignore_mask = 0x00
 			}
 		}
 	}

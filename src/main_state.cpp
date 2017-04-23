@@ -24,6 +24,7 @@
 #include <lair/core/json.h>
 
 #include "game.h"
+#include "commands.h"
 
 #include "main_state.h"
 
@@ -64,10 +65,24 @@ MainState::MainState(Game* game)
 
       _debugCounter(0)
 {
+	game->serializer().registerType<ShapeSP>();
 
 	_entities.registerComponentManager(&_sprites);
+	_entities.registerComponentManager(&_collisions);
+	_entities.registerComponentManager(&_triggers);
 	_entities.registerComponentManager(&_texts);
 	_entities.registerComponentManager(&_tileLayers);
+
+	_commands["echo"]        = echoCommand;
+	_commands["message"]     = messageCommand;
+	_commands["next_level"]  = nextLevelCommand;
+	_commands["teleport"]    = teleportCommand;
+	_commands["play_sound"]  = playSoundCommand;
+	_commands["continue"]    = continueCommand;
+	_commands["fade_in"]     = fadeInCommand;
+	_commands["fade_out"]    = fadeOutCommand;
+	_commands["disable"]     = disableCommand;
+	_commands["credits"]     = creditsCommand;
 }
 
 
@@ -195,6 +210,8 @@ void MainState::startGame() {
 	_campLevel->initialize();
 	_campLevel->start("spawn");
 
+	_level = _campLevel;
+
 	//audio()->playMusic(assets()->getAsset("music.ogg"));
 	audio()->playSound(assets()->getAsset("sound.ogg"), 2);
 }
@@ -231,15 +248,15 @@ void MainState::updateTick() {
 			_player.translation2() += offset.normalized() * playerSpeed;
 		}
 
-//		_level->computeCollisions();
+		_level->computeCollisions();
 
-//		// Level logic
-//		HitEventQueue hitQueue;
-//		_collisions.findCollisions(hitQueue);
-////		for(const HitEvent& hit: hitQueue)
-////			dbgLogger.debug("hit: ", hit.entities[0].name(), ", ", hit.entities[1].name());
+		// Level logic
+		HitEventQueue hitQueue;
+		_collisions.findCollisions(hitQueue);
+//		for(const HitEvent& hit: hitQueue)
+//			dbgLogger.debug("hit: ", hit.entities[0].name(), ", ", hit.entities[1].name());
 
-//		EntityRef useEntity;
+		EntityRef useEntity;
 //		if(_useInput->justPressed()) {
 //			std::deque<EntityRef> useQueue;
 //			Vector2 pos = _player.worldTransform().translation().head<2>();
@@ -258,24 +275,24 @@ void MainState::updateTick() {
 //			}
 //		}
 
-//		updateTriggers(hitQueue, useEntity);
+		updateTriggers(hitQueue, useEntity);
 
-//		// Bump player
-//		for(HitEvent& hit: hitQueue) {
-//			CollisionComponent* cc = _collisions.get(hit.entities[1]);
-//			if(cc && hit.entities[0] == _player && cc->hitMask() & HIT_SOLID_FLAG) {
-//				CollisionComponent* pcc = _collisions.get(_player);
-//				updatePenetration(pcc, pcc->worldAlignedBox(), cc->worldAlignedBox());
-//			}
-//		}
+		// Bump player
+		for(HitEvent& hit: hitQueue) {
+			CollisionComponent* cc = _collisions.get(hit.entities[1]);
+			if(cc && hit.entities[0] == _player && cc->hitMask() & HIT_SOLID_FLAG) {
+				CollisionComponent* pcc = _collisions.get(_player);
+				updatePenetration(pcc, pcc->worldAlignedBox(), cc->worldAlignedBox());
+			}
+		}
 
-//		CollisionComponent* pColl = _collisions.get(_player);
-//		Vector2  bump(0, 0);
-//		bump(0) += std::max(0.01f + pColl->penetration(LEFT),  0.f);
-//		bump(0) -= std::max(0.01f + pColl->penetration(RIGHT), 0.f);
-//		bump(1) += std::max(0.01f + pColl->penetration(DOWN),  0.f);
-//		bump(1) -= std::max(0.01f + pColl->penetration(UP),    0.f);
-//		_player.translate(bump);
+		CollisionComponent* pColl = _collisions.get(_player);
+		Vector2  bump(0, 0);
+		bump(0) += std::max(0.01f + pColl->penetration(LEFT),  0.f);
+		bump(0) -= std::max(0.01f + pColl->penetration(RIGHT), 0.f);
+		bump(1) += std::max(0.01f + pColl->penetration(DOWN),  0.f);
+		bump(1) -= std::max(0.01f + pColl->penetration(UP),    0.f);
+		_player.translate(bump);
 
 //		if(!_player.translation2().isApprox(lastPlayerPos)) {
 //			float prevAnim = _playerAnim;
@@ -370,11 +387,131 @@ void MainState::updateFrame() {
 }
 
 
+void MainState::exec(const std::string& cmd, EntityRef self) {
+#define MAX_CMD_ARGS 32
+
+	std::string tokens = cmd;
+	unsigned    size   = tokens.size();
+	for(int ci = 0; ci < size; ) {
+		int   argc = 0;
+		const char* argv[MAX_CMD_ARGS];
+		while(ci < size) {
+			bool endLine = false;
+			while(ci < size && std::isspace(tokens[ci])) {
+				endLine = tokens[ci] == '\n';
+				tokens[ci] = '\0';
+				++ci;
+			}
+			if(endLine)
+				break;
+
+			argv[argc] = tokens.data() + ci;
+			++argc;
+
+			while(ci < size && !std::isspace(tokens[ci])) {
+				++ci;
+			}
+		}
+
+		if(argc) {
+			exec(argc, argv, self);
+		}
+	}
+}
+
+
+int MainState::exec(int argc, const char** argv, EntityRef self) {
+	lairAssert(argc > 0);
+	echoCommand(this, self, argc, argv);
+	auto cmd = _commands.find(argv[0]);
+	if(cmd == _commands.end()) {
+		dbgLogger.warning("Unknown command \"", argv[0], "\"");
+		return -1;
+	}
+	return cmd->second(this, self, argc, argv);
+}
+
+
+void MainState::updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, bool disableCmds) {
+	_triggers.compactArray();
+
+	if(useEntity.isValid()) {
+		TriggerComponent* tc = _triggers.get(useEntity);
+		if(tc && !tc->onUse.empty())
+			exec(tc->onUse, useEntity);
+	}
+
+	for(TriggerComponent& tc: _triggers) {
+		if(tc.isEnabled() && tc.entity().isEnabledRec()) {
+			tc.prevInside = tc.inside;
+			tc.inside = false;
+		}
+	}
+
+	for(HitEvent& hit: hitQueue) {
+		if(hit.entities[1] == _player) {
+			std::swap(hit.entities[0], hit.entities[1]);
+			std::swap(hit.boxes[0],    hit.boxes[1]);
+		}
+
+		if(hit.entities[0] == _player) {
+			TriggerComponent* tc = _triggers.get(hit.entities[1]);
+			if(tc) {
+				tc->inside = true;
+			}
+		}
+	}
+
+	if(!disableCmds) {
+		for(TriggerComponent& tc: _triggers) {
+			if(tc.isEnabled() && tc.entity().isEnabledRec()) {
+				if(!tc.prevInside && tc.inside && !tc.onEnter.empty())
+					exec(tc.onEnter, tc.entity());
+				if(tc.prevInside && !tc.inside && !tc.onExit.empty())
+					exec(tc.onExit, tc.entity());
+			}
+		}
+	}
+}
+
+
+void MainState::preloadSound(const Path& sound) {
+	loader()->load<SoundLoader>(sound);
+	_soundMap.emplace(sound, _soundMap.size());
+}
+
+
+void MainState::playSound(const Path& sound) {
+	int chann = 0;
+	if(_soundMap.count(sound))
+		chann = _soundMap[sound];
+
+	AssetSP asset = assets()->getAsset(sound);
+
+//	if(sound == "footstep.wav")
+//		asset->aspect<SoundAspect>()->get()->setVolume(.15);
+
+	audio()->playSound(asset, 0, chann);
+}
+
+
 void MainState::resizeEvent() {
 	// TODO: Support aspect ratio other that 16:9 without stretching.
 	Box3 viewBox(Vector3(0, 0, 0),
 	             Vector3(1920, 1080, 1));
 	_camera.setViewBox(viewBox);
+}
+
+
+EntityRef MainState::createTrigger(EntityRef parent, const char* name, const Box2& box) {
+	EntityRef entity = _entities.createEntity(parent, name);
+
+	CollisionComponent* cc = _collisions.addComponent(entity);
+	cc->setShape(Shape::newAlignedBox(box));
+	cc->setHitMask(HIT_PLAYER_FLAG | HIT_TRIGGER_FLAG | HIT_USE_FLAG);
+	cc->setIgnoreMask(HIT_TRIGGER_FLAG);
+
+	return entity;
 }
 
 

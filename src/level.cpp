@@ -27,8 +27,10 @@
 
 
 bool isSolid(TileMap::TileIndex tile) {
-	unsigned x = (tile - 1) % TILE_SET_WIDTH;
-	return x >= TILE_SET_WIDTH / 2;
+	tile -= 1;
+	unsigned x = tile % TILE_SET_WIDTH;
+	unsigned y = tile / TILE_SET_WIDTH;
+	return y < 3 && x < 5 && (y != 2 || x < 3);
 }
 
 
@@ -70,6 +72,14 @@ void updatePenetration(CollisionComponent* comp, const Box2& objBox, const Box2&
 	}
 }
 
+unsigned updateFlags(unsigned flags, unsigned bit, const Json::Value& obj, const std::string& key) {
+	const Json::Value& b = obj.get(key, Json::Value(Json::nullValue));
+	if(!b.isBool())
+		return flags;
+	if(b.asBool())
+		return flags | bit;
+	return flags & ~bit;
+}
 
 
 Box2 flipY(const Box2& box, float height) {
@@ -120,20 +130,19 @@ void Level::initialize() {
 			std::string name = obj.get("name", "<no_name>").asString();
 
 			EntityRef entity;
-//			if(type == "trigger") {
-//				entity = createTrigger(obj, name);
-//			}
+			if(type == "trigger") {
+				entity = createTrigger(obj, name);
+			}
+			else if(type == "entity") {
+				entity = createEntity(obj, name);
+			}
 //			else if(type == "item") {
 //				entity = createItem(obj, name);
 //			}
 //			else if(type == "door") {
 //				entity = createDoor(obj, name);
 //			}
-//			else if(type == "sprite") {
-//				entity = createSprite(obj, name);
-//			}
-//			else
-			if(type == "spawn") {
+			else if(type == "spawn") {
 				entity = _mainState->_entities.createEntity(_levelRoot, name.c_str());
 				entity.translation2() = objectBox(obj).center();
 //				entity.extra() = obj["properties"];
@@ -203,43 +212,45 @@ EntityRef Level::createLayer(unsigned index, const char* name) {
 }
 
 
-//EntityRef Level::createTrigger(const Json::Value &obj, const std::string& name) {
-//	Json::Value props = obj.get("properties", Json::Value());
+EntityRef Level::createTrigger(const Json::Value &obj, const std::string& name) {
+	Json::Value props = obj.get("properties", Json::Value());
 
-//	Box2 box = objectBox(obj);
-//	float margin = props.get("margin", 0).asFloat();
-//	Vector2 half = box.sizes() / 2 + Vector2(margin, margin);
-//	Box2 hitBox(-half, half);
+	Box2 box = objectBox(obj);
+	float margin = props.get("margin", 0).asFloat();
+	Vector2 half = box.sizes() / 2 + Vector2(margin, margin);
+	Box2 hitBox(-half, half);
 
-//	EntityRef entity = _mainState->createTrigger(_levelRoot, name.c_str(), hitBox);
-//	entity.place((Vector3() << box.center(), 0.08).finished());
-//	entity.setEnabled(props.get("enabled", true).asBool());
+	EntityRef entity = _mainState->createTrigger(_levelRoot, name.c_str(), hitBox);
+	entity.place((Vector3() << box.center(), 0.08).finished());
+	entity.setEnabled(props.get("enabled", true).asBool());
+
+	dbgLogger.error("trigger: ", (box.center() + hitBox.min()).transpose(), ", ", hitBox.sizes().transpose());
 
 
-//	TriggerComponent* tc = _mainState->_triggers.addComponent(entity);
-//	tc->onEnter = props.get("on_enter", "").asString();
-//	tc->onExit  = props.get("on_exit",  "").asString();
-//	tc->onUse   = props.get("on_use",   "").asString();
-//	if(props.get("solid", false).asBool()) {
-//		CollisionComponent* cc = _mainState->_collisions.get(entity);
-//		cc->setHitMask(cc->hitMask() | HIT_SOLID_FLAG);
-//	}
+	TriggerComponent* tc = _mainState->_triggers.addComponent(entity);
+	tc->onEnter = props.get("on_enter", "").asString();
+	tc->onExit  = props.get("on_exit",  "").asString();
+	tc->onUse   = props.get("on_use",   "").asString();
+	if(props.get("solid", false).asBool()) {
+		CollisionComponent* cc = _mainState->_collisions.get(entity);
+		cc->setHitMask(cc->hitMask() | HIT_SOLID_FLAG);
+	}
 
-//	std::string sprite = props.get("sprite", "").asString();
-//	if(!sprite.empty()) {
-//		SpriteComponent* sc = _mainState->_sprites.addComponent(entity);
-//		sc->setTexture(sprite);
-//		sc->setTileIndex(props.get("tile_index", 0).asInt());
+	std::string sprite = props.get("sprite", "").asString();
+	if(!sprite.empty()) {
+		SpriteComponent* sc = _mainState->_sprites.addComponent(entity);
+		sc->setTexture(sprite);
+		sc->setTileIndex(props.get("tile_index", 0).asInt());
 		
-//		int tileH = props.get("tile_h", 4).asInt();
-//		int tileV = props.get("tile_v", 2).asInt();
-//		sc->setTileGridSize(Vector2i(tileH, tileV));
-//		sc->setAnchor(Vector2(.5, .5));
-//		sc->setBlendingMode(BLEND_ALPHA);
-//	}
+		int tileH = props.get("tile_h", 4).asInt();
+		int tileV = props.get("tile_v", 2).asInt();
+		sc->setTileGridSize(Vector2i(tileH, tileV));
+		sc->setAnchor(Vector2(.5, .5));
+		sc->setBlendingMode(BLEND_ALPHA);
+	}
 
-//	return entity;
-//}
+	return entity;
+}
 
 
 //EntityRef Level::createItem(const Json::Value& obj, const std::string& name) {
@@ -273,30 +284,69 @@ EntityRef Level::createLayer(unsigned index, const char* name) {
 //}
 
 
-//EntityRef Level::createSprite(const Json::Value &obj, const std::string& name) {
-//	Json::Value props = obj.get("properties", Json::Value());
+EntityRef Level::createEntity(const Json::Value &obj, const std::string& name) {
+	Json::Value props = obj.get("properties", Json::Value());
 
-//	Box2 box = objectBox(obj);
-//	float depth = props.get("depth", 0.08).asFloat();
-//	Vector2 offset(props.get("offset_x", 0.0).asFloat(),
-//	               props.get("offset_y", 0.0).asFloat());
+	Box2 box = objectBox(obj);
+	float depth = props.get("depth", 0.08).asFloat();
+	Vector2 offset(props.get("offset_x", 0.0).asFloat(),
+	               props.get("offset_y", 0.0).asFloat());
+	Vector2 anchor( 0.5, 0.5 );
 
-//	EntityRef entity = _mainState->_entities.createEntity(_levelRoot, name.c_str());
-//	entity.place((Vector3() << box.center() + offset, depth).finished());
+	String modelName = props.get("model", "").asString();
+	if(modelName.empty())
+		return EntityRef();
 
-//	std::string sprite = props.get("sprite", "").asString();
-//	SpriteComponent* sc = _mainState->_sprites.addComponent(entity);
-//	sc->setTexture(sprite);
-//	sc->setTileIndex(props.get("tile_index", 0).asInt());
+	EntityRef model = _mainState->getEntity(modelName, _mainState->_models); //_mainState->_entities.createEntity(_levelRoot, name.c_str());
+	if(!model.isValid())
+		return EntityRef();
 
-//	int tileH = props.get("tile_h", 4).asInt();
-//	int tileV = props.get("tile_v", 2).asInt();
-//	sc->setTileGridSize(Vector2i(tileH, tileV));
-//	sc->setAnchor(Vector2(.5, .5));
-//	sc->setBlendingMode(BLEND_ALPHA);
+	EntityRef entity = _mainState->_entities.cloneEntity(model, _levelRoot, name.c_str());
 
-//	return entity;
-//}
+	SpriteComponent* sc = _mainState->_sprites.get(entity);
+	if(sc) {
+		std::string sprite = props.get("sprite", sc->texturePath().utf8String()).asString();
+		int tile  = props.get("tile_index", sc->tileIndex()).asInt();
+		int tileH = props.get("tile_h", sc->tileGridSize()(0)).asInt();
+		int tileV = props.get("tile_v", sc->tileGridSize()(1)).asInt();
+		anchor(0) = props.get("anchor_x", sc->anchor()(0)).asFloat();
+		anchor(1) = props.get("anchor_y", sc->anchor()(1)).asFloat();
+
+		sc->setTexture(sprite);
+		sc->setTileIndex(tile);
+		sc->setTileGridSize(Vector2i(tileH, tileV));
+		sc->setAnchor(anchor);
+//		sc->setBlendingMode(BLEND_ALPHA);
+	}
+
+	Vector2 position = box.min() + box.sizes().cwiseProduct(anchor);
+	entity.place((Vector3() << position, depth).finished());
+
+	CollisionComponent* cc = _mainState->_collisions.get(entity);
+	if(cc) {
+		float margin = props.get("margin", 0).asFloat();
+		Box2 hitBox(box.min() - position + Vector2(margin, margin),
+		            box.max() - position - Vector2(margin, margin));
+
+		cc->setShape(Shape::newAlignedBox(hitBox));
+
+		unsigned hitMask = cc->hitMask();
+		hitMask = updateFlags(hitMask, HIT_PLAYER_FLAG,  props, "hitPlayer");
+		hitMask = updateFlags(hitMask, HIT_TRIGGER_FLAG, props, "hitTrigger");
+		hitMask = updateFlags(hitMask, HIT_USE_FLAG,     props, "hitUse");
+		hitMask = updateFlags(hitMask, HIT_SOLID_FLAG,   props, "hitSolid");
+		cc->setHitMask(hitMask);
+
+		unsigned ignoreMask = cc->ignoreMask();
+		ignoreMask = updateFlags(ignoreMask, HIT_PLAYER_FLAG,  props, "hitPlayer");
+		ignoreMask = updateFlags(ignoreMask, HIT_TRIGGER_FLAG, props, "hitTrigger");
+		ignoreMask = updateFlags(ignoreMask, HIT_USE_FLAG,     props, "hitUse");
+		ignoreMask = updateFlags(ignoreMask, HIT_SOLID_FLAG,   props, "hitSolid");
+		cc->setIgnoreMask(ignoreMask);
+	}
+
+	return entity;
+}
 
 
 EntityRef Level::entity(const std::string& name) {

@@ -44,6 +44,7 @@
 #include "components.h"
 #include "gui.h"
 #include "level.h"
+#include "dialog.h"
 
 
 #define FRAMERATE 60
@@ -58,6 +59,7 @@ using namespace lair;
 
 
 class Game;
+class Dialog;
 
 
 typedef int (*Command)(MainState* state, EntityRef self, int argc, const char** argv);
@@ -129,6 +131,8 @@ public:
 	int64       _prevFrameTime;
 	int64       _fpsTime;
 	unsigned    _fpsCount;
+
+	Dialog*     _currentDialog;
 
 	Input*      _quitInput;
 	Input*      _okInput;

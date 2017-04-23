@@ -24,7 +24,6 @@
 #include <lair/core/json.h>
 
 #include "game.h"
-#include "dialog.h"
 #include "commands.h"
 
 #include "main_state.h"
@@ -179,8 +178,6 @@ void MainState::run() {
 
 	startGame();
 
-	Dialog foo(game()->dataPath() / "dialog_example.ldl");
-
 	do {
 		switch(_loop.nextEvent()) {
 		case InterpLoop::Tick:
@@ -228,7 +225,7 @@ void MainState::updateTick() {
 //	if(_state == STATE_PLAY) {
 		// Player movement
 		Vector2 offset(0, 0);
-		if(_upInput->isPressed()) {
+		if(_upInput->isPressed() && !_currentDialog) {
 			offset(1) += 1;
 			_playerDir  = UP;
 		}
@@ -236,7 +233,7 @@ void MainState::updateTick() {
 			offset(0) -= 1;
 			_playerDir  = LEFT;
 		}
-		if(_downInput->isPressed()) {
+		if(_downInput->isPressed() && !_currentDialog) {
 			offset(1) -= 1;
 			_playerDir  = DOWN;
 		}
@@ -244,6 +241,22 @@ void MainState::updateTick() {
 			offset(0) += 1;
 			_playerDir  = RIGHT;
 		}
+
+		// Dialog
+		if (_okInput->justPressed())
+		{
+			if (_currentDialog == NULL)
+			{
+				_currentDialog = new Dialog(this, game()->dataPath() / "dialog_example.ldl");
+				_currentDialog->beginDialog();
+			}
+			else if (_currentDialog->stepDialog())
+				_currentDialog = NULL;
+		}
+		else if (_upInput->justPressed() && _currentDialog)
+			_currentDialog->selectUp();
+		else if (_downInput->justPressed() && _currentDialog)
+			_currentDialog->selectDown();
 
 		Vector2 lastPlayerPos = _player.translation2();
 		float playerSpeed = 10 * float(TILE_SIZE) / float(TICKRATE);
@@ -316,7 +329,7 @@ void MainState::updateTick() {
 	if(_quitInput->justPressed()) {
 		quit();
 	}
-
+/*
 	if(_okInput->justPressed()) {
 		switch(_debugCounter % 4) {
 		case 0:
@@ -335,6 +348,7 @@ void MainState::updateTick() {
 
 		++_debugCounter;
 	}
+*/
 }
 
 

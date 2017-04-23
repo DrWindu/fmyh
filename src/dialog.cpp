@@ -26,6 +26,8 @@
 #include <cstdio>
 
 extern FILE* yyin;
+extern DLogic* parseval;
+extern bool pick;
 
 using namespace lair;
 
@@ -33,6 +35,8 @@ void parseLogic (const String mess, DNode& n)
 {
 	yyin = fmemopen((char*) mess.c_str(), mess.size(), "r");
 	yyparse();
+	n.choice = pick;
+	n.cond = parseval;
 }
 
 void readDLine (LdlParser& p, std::vector<DLine>& lines)
@@ -41,8 +45,7 @@ void readDLine (LdlParser& p, std::vector<DLine>& lines)
 	bool ok = true;
 	ok = ok && ldlRead(p, dood);
 	ok = ok && ldlRead(p, text);
-	if(ok)
-		lines.push_back({dood, text});
+	if(ok) lines.push_back({dood, text});
 }
 
 void listDLines (LdlParser& p, DNode& n)
@@ -123,10 +126,22 @@ void listDEffects (LdlParser& p, DNode& n)
 	p.leave();
 }
 
-void stackNexts (LdlParser& p, std::vector<String> next)
+void stackNexts (LdlParser& p, std::vector<String>& next)
 {
-	//TODO: This.
-	p.skip();
+	if (p.valueType() == LdlParser::TYPE_STRING)
+	{
+		next.push_back(p.getString());
+		p.next();
+		return;
+	}
+
+	p.enter();
+	while (p.valueType() != LdlParser::TYPE_END)
+	{
+		next.push_back(p.getString());
+		p.next();
+	}
+	p.leave();
 }
 
 Dialog::Dialog(const Path& filename)
@@ -186,8 +201,13 @@ Dialog::Dialog(const Path& filename)
 		p.leave();		
 	}
 
-	//TODO: Build the actual graph using nexts.
-	el.log(dbgLogger);
+	// el.log(dbgLogger);
+	assert( nodes.size() == nexts.size() );
+	for (int i = 0 ; i < nexts.size() ; i++)
+		for (int j = 0 ; j < nexts[i].size() ; j++)
+			for (int k = 0 ; k < nodes.size() ; k++)
+				if (nodes[k]->id == nexts[i][j])
+					nodes[i]->next.push_back(nodes[k]);
 
 	_start = nodes[0];
 }

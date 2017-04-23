@@ -2,10 +2,10 @@
 	#include "dialog.h"
 
 	bool pick;
+	DLogic* parseval;
 
 	void yyerror (char const *s) { fprintf (stderr, "%s\n", s); }
 	int yylex(void);
-
 %}
 
 %union {
@@ -14,7 +14,7 @@
 	int val;
 }
 
-%type <l> logic valtest flagcheck
+%type <l> cond mlogic logic valtest flagcheck
 %type <val> val
 
 %token PPICK
@@ -29,13 +29,13 @@
 
 %%
 
-cond: mpick mlogic { }
+cond: mpick mlogic { parseval = $2; }
 
 mpick: PPICK { pick = true;  }
      |       { pick = false; }
 
-mlogic: logic       { /*$1;*/ }
-      |             { /*NULL;*/ }
+mlogic: logic       { $$ = $1;   }
+      |             { $$ = NULL; }
 
 logic: OPENPAR logic CLOSEPAR { $$ = $2; }
      | NOT logic              { $$ = new DLogic{L_NOT, $2, NULL, "", 0}; }

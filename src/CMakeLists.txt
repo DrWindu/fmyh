@@ -29,7 +29,7 @@ include_directories(
 	"${SDL2_INCLUDE_DIR}"
 )
 
-add_executable(${CMAKE_PROJECT_NAME}
+set(SOURCES
 	main.cpp
 	settings.cpp
 	game.cpp
@@ -43,6 +43,13 @@ add_executable(${CMAKE_PROJECT_NAME}
 	logic_language.tab.cpp
 	logic_language.yy.cpp
 )
+
+if(APPLE)
+	list(APPEND SOURCES fmemopen.cpp)
+	link_directories("/opt/local/lib")
+endif()
+
+add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	lair

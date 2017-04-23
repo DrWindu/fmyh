@@ -23,7 +23,11 @@
 #include "dialog.h"
 #include "logic_language.tab.hpp"
 
+#ifdef __APPLE__
+#include "fmemopen.h"
+#else
 #include <cstdio>
+#endif
 
 extern FILE* yyin;
 

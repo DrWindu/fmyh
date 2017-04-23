@@ -21,12 +21,18 @@
 #include <lair/core/ldl.h>
 
 #include "dialog.h"
+#include "logic_language.tab.hpp"
+
+#include <cstdio>
+
+extern FILE* yyin;
 
 using namespace lair;
 
 void parseLogic (const String mess, DNode& n)
 {
-	// Fuck this. I quit.
+	yyin = fmemopen((char*) mess.c_str(), mess.size(), "r");
+	yyparse();
 }
 
 void readDLine (LdlParser& p, std::vector<DLine>& lines)

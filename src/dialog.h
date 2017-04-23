@@ -68,11 +68,11 @@ enum LType {
 	YFLAG, NFLAG
 };
 
-struct Logic {
+struct DLogic {
 	LType t;
 
-	Logic& left;
-	Logic& right;
+	DLogic* left;
+	DLogic* right;
 
 	String name;
 	int val;
@@ -100,7 +100,7 @@ struct DLine {
 struct DNode {
 	String id;
 	bool choice;
-	Logic* cond;
+	DLogic* cond;
 	std::vector<DLine> lines;
 	std::vector<DEffect> effects;
 	std::vector<DNode*> next;

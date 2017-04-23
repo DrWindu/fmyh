@@ -1,0 +1,56 @@
+%{
+	#include "dialog.h"
+
+	bool pick;
+
+	void yyerror (char const *s) { fprintf (stderr, "%s\n", s); }
+	int yylex(void);
+
+%}
+
+%union {
+	struct DLogic* l;
+	char* id;
+	int val;
+}
+
+%type <l> logic valtest flagcheck
+%type <val> val
+
+%token PPICK
+%token OPENPAR CLOSEPAR
+%left OR
+%left AND
+%left NOT
+%token BANG LESS MORE EQ
+%token OPENVAL CLOSEVAL
+%token <id>  ID
+%token <val> VAL
+
+%%
+
+cond: mpick mlogic { }
+
+mpick: PPICK { pick = true;  }
+     |       { pick = false; }
+
+mlogic: logic       { /*$1;*/ }
+      |             { /*NULL;*/ }
+
+logic: OPENPAR logic CLOSEPAR { $$ = $2; }
+     | NOT logic              { $$ = new DLogic{L_NOT, $2, NULL, "", 0}; }
+     | logic AND logic        { $$ = new DLogic{L_AND, $1, $3,   "", 0}; }
+     | logic OR logic         { $$ = new DLogic{L_OR,  $1, $3,   "", 0}; }
+     | valtest                { $$ = $1; }
+     | flagcheck              { $$ = $1; }
+
+valtest: MORE ID val { $$ = new DLogic{C_GREATER, NULL, NULL, String($2), $3}; }
+       | LESS ID val { $$ = new DLogic{C_LESSER,  NULL, NULL, String($2), $3}; }
+       | EQ   ID val { $$ = new DLogic{C_EQUAL,   NULL, NULL, String($2), $3}; }
+
+val: OPENVAL VAL CLOSEVAL { $$ = $2; }
+
+flagcheck: ID      { $$ = new DLogic{YFLAG, NULL, NULL, String($1), 0}; }
+         | BANG ID { $$ = new DLogic{NFLAG, NULL, NULL, String($2), 0}; }
+
+%%

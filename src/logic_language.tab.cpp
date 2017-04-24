@@ -67,10 +67,10 @@
 	#include "dialog.h"
 
 	bool pick;
+	DLogic* parseval;
 
 	void yyerror (char const *s) { fprintf (stderr, "%s\n", s); }
 	int yylex(void);
-
 
 #line 76 "logic_language.tab.cpp" /* yacc.c:339  */
 
@@ -1235,7 +1235,7 @@ yyreduce:
     {
         case 2:
 #line 32 "logic_language.ypp" /* yacc.c:1646  */
-    { }
+    { parseval = (yyvsp[0].l); }
 #line 1240 "logic_language.tab.cpp" /* yacc.c:1646  */
     break;
 
@@ -1253,13 +1253,13 @@ yyreduce:
 
   case 5:
 #line 37 "logic_language.ypp" /* yacc.c:1646  */
-    { /*$1;*/ }
+    { (yyval.l) = (yyvsp[0].l);   }
 #line 1258 "logic_language.tab.cpp" /* yacc.c:1646  */
     break;
 
   case 6:
 #line 38 "logic_language.ypp" /* yacc.c:1646  */
-    { /*NULL;*/ }
+    { (yyval.l) = NULL; }
 #line 1264 "logic_language.tab.cpp" /* yacc.c:1646  */
     break;
 

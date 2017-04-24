@@ -24,6 +24,8 @@
 
 #include <lair/core/path.h>
 
+#include "main_state.h"
+
 using namespace lair;
 
 /* A dialog is a graph of conditional lines with effects.
@@ -108,13 +110,25 @@ struct DNode {
 
 class Dialog {
 public:
-	Dialog(const Path& filename);
+	Dialog(MainState* ms, const Path& filename);
 	virtual ~Dialog();
 
-protected:
-	DNode* _start;
-	
-};
+	void beginDialog();
+	bool stepDialog();
+	void selectUp();
+	void selectDown();
 
+protected:
+	void say(DLine l);
+	void offerChoice();
+
+	MainState* _ms;
+
+	DNode* _start;
+	DNode* _current;
+
+	std::vector<String> _choices;
+	int _choice;
+};
 
 #endif

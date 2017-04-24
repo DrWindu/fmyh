@@ -18,10 +18,8 @@
  *
  */
 
-#include <lair/core/ldl.h>
 
-#include "dialog.h"
-#include "logic_language.tab.hpp"
+#include <cstdio>
 
 #ifdef __APPLE__
 #include "fmemopen.h"
@@ -29,7 +27,16 @@
 #include <cstdio>
 #endif
 
+#include <lair/core/ldl.h>
+
+#include "dialog.h"
+#include "gui.h"
+
+#include "logic_language.tab.hpp"
+
 extern FILE* yyin;
+extern DLogic* parseval;
+extern bool pick;
 
 using namespace lair;
 
@@ -37,6 +44,8 @@ void parseLogic (const String mess, DNode& n)
 {
 	yyin = fmemopen((char*) mess.c_str(), mess.size(), "r");
 	yyparse();
+	n.choice = pick;
+	n.cond = parseval;
 }
 
 void readDLine (LdlParser& p, std::vector<DLine>& lines)
@@ -45,8 +54,7 @@ void readDLine (LdlParser& p, std::vector<DLine>& lines)
 	bool ok = true;
 	ok = ok && ldlRead(p, dood);
 	ok = ok && ldlRead(p, text);
-	if(ok)
-		lines.push_back({dood, text});
+	if(ok) lines.push_back({dood, text});
 }
 
 void listDLines (LdlParser& p, DNode& n)
@@ -60,14 +68,13 @@ void listDLines (LdlParser& p, DNode& n)
 	p.enter();
 	if (p.valueType() == LdlParser::TYPE_STRING)
 		readDLine(p, n.lines);
-	else if(p.valueType() == LdlParser::TYPE_LIST) {
+	else if(p.valueType() == LdlParser::TYPE_LIST)
 		while (p.valueType() != LdlParser::TYPE_END)
 		{
 			p.enter();
 			readDLine(p, n.lines);
 			p.leave();
 		}
-	}
 	else {
 		p.error("Expected VarList or String, got ", p.valueTypeName());
 		p.skip();
@@ -127,13 +134,25 @@ void listDEffects (LdlParser& p, DNode& n)
 	p.leave();
 }
 
-void stackNexts (LdlParser& p, std::vector<String> next)
+void stackNexts (LdlParser& p, std::vector<String>& next)
 {
-	//TODO: This.
-	p.skip();
+	if (p.valueType() == LdlParser::TYPE_STRING)
+	{
+		next.push_back(p.getString());
+		p.next();
+		return;
+	}
+
+	p.enter();
+	while (p.valueType() != LdlParser::TYPE_END)
+	{
+		next.push_back(p.getString());
+		p.next();
+	}
+	p.leave();
 }
 
-Dialog::Dialog(const Path& filename)
+Dialog::Dialog(MainState* ms, const Path& filename)
 {
 	Path::IStream in(filename.native().c_str());
 	lairAssert(in.good());
@@ -190,13 +209,93 @@ Dialog::Dialog(const Path& filename)
 		p.leave();		
 	}
 
-	//TODO: Build the actual graph using nexts.
-	el.log(dbgLogger);
+	// el.log(dbgLogger);
+	assert( nodes.size() == nexts.size() );
+	for (int i = 0 ; i < nexts.size() ; i++)
+		for (int j = 0 ; j < nexts[i].size() ; j++)
+			for (int k = 0 ; k < nodes.size() ; k++)
+				if (nodes[k]->id == nexts[i][j])
+					nodes[i]->next.push_back(nodes[k]);
 
 	_start = nodes[0];
+	_ms = ms;
+	_choice = -1;
 }
 
-Dialog::~Dialog()
+Dialog::~Dialog () { }
+
+void Dialog::say (DLine l)
 {
+	//TODO: Draw facez.
+	_ms->_gui.setText(l.text);
 }
 
+void Dialog::beginDialog ()
+{
+	_current = _start;
+	_ms->_gui.showDialog();
+	say(_current->lines[0]);
+}
+
+bool Dialog::stepDialog ()
+{
+	if (_current->next.size() == 0)
+	{
+		_ms->_gui.hideDialog();
+		_current = NULL;
+		_choice = -1;
+		return true;
+	}
+
+	if (_choice == -1)
+		_current = _current->next[0];
+	else
+	{
+		//FIXME: Shit will break badly if some choice have prerequisites.
+		_current = _current->next[_choice];
+		_choices.clear();
+		_choice = -1;
+	}
+
+	if (_current->next.size() && _current->next[0]->choice)
+	{
+		for (int i = 0 ; i < _current->next.size() ; i++)
+			_choices.push_back(_current->next[i]->lines[0].text);
+		_choice = 0;
+		offerChoice();
+	}
+	else
+		say(_current->lines[0]);
+	return false;
+}
+
+void Dialog::offerChoice ()
+{
+	assert (_choice != -1);
+	String out(_current->lines[0].text + "\n");
+	for (int i = 0 ; i < _choices.size() ; i++)
+	{
+		if (i == _choice)
+			out += "> ";
+		else
+			out += "  ";
+		out += _choices[i];
+		out += "\n";
+	}
+	_ms->_gui.setText(out);
+}
+
+void Dialog::selectUp ()
+{
+	if (_choice == -1) return;
+	_choice = std::max(_choice-1, 0);
+	offerChoice();
+}
+
+void Dialog::selectDown ()
+{
+	if (_choice == -1) return;
+	//FIXME: Chosen by fair dice roll.
+	_choice = std::min(_choice+1, (int) _choices.size()-1);
+	offerChoice();
+}

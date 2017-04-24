@@ -255,6 +255,10 @@ bool Dialog::stepDialog ()
 		if (_line >= _current->lines.size())
 		{
 			_line = 0;
+
+			// Apply effects.
+			apply(_current->effects, _ms->_gameData);
+
 			// No next dialog: over and out.
 			if (_current->next.size() == 0)
 			{
@@ -268,7 +272,7 @@ bool Dialog::stepDialog ()
 			// Pick first allowed next dialog... if any.
 			bool panic = true;
 			for (int i = 0 ; i < _current->next.size() ; i++)
-				if (check(_current->next[i]->cond, _ms->_gameData))
+				if (check(_current->next[i]->cond))
 				{
 					panic = false;
 					_current = _current->next[i];
@@ -292,7 +296,7 @@ bool Dialog::stepDialog ()
 	{
 		// Yes: Build and display list of available choices (the rest are hidden).
 		for (int i = 0 ; i < _current->next.size() ; i++)
-			if (check(_current->next[i]->cond, _ms->_gameData))
+			if (check(_current->next[i]->cond))
 				_choices.push_back(std::pair<String, DNode*>(_current->next[i]->lines[0].text, _current->next[i]));
 		_choice = 0;
 		offerChoice();
@@ -332,28 +336,62 @@ void Dialog::selectDown ()
 	offerChoice();
 }
 
-bool Dialog::check (DLogic* cond, std::unordered_map<String, int> data)
+bool Dialog::check_rec (const DLogic* cond, const std::unordered_map<String, int>& data)
 {
 	if (!cond) return true;
 	switch (cond->t)
 	{
 		case L_NOT:
-			return !check(cond->left, data);
+			return !check_rec(cond->left, data);
 		case L_AND:
-			return check(cond->left, data) && check(cond->right, data);
+			return check_rec(cond->left, data) && check_rec(cond->right, data);
 		case L_OR:
-			return check(cond->left, data) || check(cond->right, data);
+			return check_rec(cond->left, data) || check_rec(cond->right, data);
 		case C_GREATER:
-			return data[cond->name] > cond->val;
+			return data.at(cond->name) > cond->val;
 		case C_LESSER:
-			return data[cond->name] < cond->val;
+			return data.at(cond->name) < cond->val;
 		case C_EQUAL:
-			return data[cond->name] == cond->val;
+			return data.at(cond->name) == cond->val;
 		case YFLAG:
-			return data[cond->name];
+			return data.at(cond->name);
 		case NFLAG:
-			return !data[cond->name];
+			return !data.at(cond->name);
 		default:
 			assert (false);
+	}
+}
+
+bool Dialog::check (const DLogic* cond)
+{
+	//TODO: If exception thrown, set value to zero, warn, and try again.
+	check_rec(cond, _ms->_gameData);
+}
+
+
+void Dialog::apply (const std::vector<DEffect>& effects, std::unordered_map<String, int>& data)
+{
+	for (int i = 0 ; i < effects.size() ; i++)
+	{
+		DEffect e = effects[i];
+		if (!data.count(e.name)) data[e.name] = 0;
+		switch (e.t)
+		{
+			case V_INCR:
+				data[e.name] += e.val;
+				break;
+			case V_DECR:
+				data[e.name] -= e.val;
+				break;
+			case V_SET:
+				data[e.name] = e.val;
+				break;
+			case FLAG:
+				data[e.name] = 1;
+				break;
+			case UNFLAG:
+				data[e.name] = 0;
+				break;
+		}
 	}
 }

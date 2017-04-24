@@ -275,6 +275,7 @@ void MainState::updateTick() {
 			_player.translation2() += offset.normalized() * playerSpeed;
 		}
 
+		_scene.updateWorldTransformRec();
 		_level->computeCollisions();
 
 		// Level logic

@@ -120,7 +120,7 @@ void listDEffects (LdlParser& p, DNode& n)
 {
 	if (p.valueType() == LdlParser::TYPE_STRING)
 	{
-		parseDEffect(p.getString());
+		n.effects.push_back(parseDEffect(p.getString()));
 		p.next();
 		return;
 	}
@@ -128,7 +128,7 @@ void listDEffects (LdlParser& p, DNode& n)
 	p.enter();
 	while (p.valueType() != LdlParser::TYPE_END)
 	{
-		parseDEffect(p.getString());
+		n.effects.push_back(parseDEffect(p.getString()));
 		p.next();
 	}
 	p.leave();
@@ -257,7 +257,7 @@ bool Dialog::stepDialog ()
 			_line = 0;
 
 			// Apply effects.
-			apply(_current->effects, _ms->_gameData);
+			apply(_current->effects);
 
 			// No next dialog: over and out.
 			if (_current->next.size() == 0)
@@ -336,62 +336,55 @@ void Dialog::selectDown ()
 	offerChoice();
 }
 
-bool Dialog::check_rec (const DLogic* cond, const std::unordered_map<String, int>& data)
+bool Dialog::check (const DLogic* cond)
 {
 	if (!cond) return true;
 	switch (cond->t)
 	{
 		case L_NOT:
-			return !check_rec(cond->left, data);
+			return !check(cond->left);
 		case L_AND:
-			return check_rec(cond->left, data) && check_rec(cond->right, data);
+			return check(cond->left) && check(cond->right);
 		case L_OR:
-			return check_rec(cond->left, data) || check_rec(cond->right, data);
+			return check(cond->left) || check(cond->right);
 		case C_GREATER:
-			return data.at(cond->name) > cond->val;
+			return _ms->getData(cond->name) > cond->val;
 		case C_LESSER:
-			return data.at(cond->name) < cond->val;
+			return _ms->getData(cond->name) < cond->val;
 		case C_EQUAL:
-			return data.at(cond->name) == cond->val;
+			return _ms->getData(cond->name) == cond->val;
 		case YFLAG:
-			return data.at(cond->name);
+			return _ms->getData(cond->name);
 		case NFLAG:
-			return !data.at(cond->name);
+			return !_ms->getData(cond->name);
 		default:
 			assert (false);
 	}
 }
 
-bool Dialog::check (const DLogic* cond)
-{
-	//TODO: If exception thrown, set value to zero, warn, and try again.
-	return check_rec(cond, _ms->_gameData);
-}
-
-
-void Dialog::apply (const std::vector<DEffect>& effects, std::unordered_map<String, int>& data)
+void Dialog::apply (const std::vector<DEffect>& effects)
 {
 	for (int i = 0 ; i < effects.size() ; i++)
 	{
 		DEffect e = effects[i];
-		if (!data.count(e.name)) data[e.name] = 0;
 		switch (e.t)
 		{
 			case V_INCR:
-				data[e.name] += e.val;
+				_ms->getData(e.name) += e.val;
 				break;
 			case V_DECR:
-				data[e.name] -= e.val;
+				_ms->getData(e.name) -= e.val;
 				break;
 			case V_SET:
-				data[e.name] = e.val;
+				_ms->getData(e.name) = e.val;
 				break;
 			case FLAG:
-				data[e.name] = 1;
+				_ms->getData(e.name) = 1;
 				break;
 			case UNFLAG:
-				data[e.name] = 0;
+				_ms->getData(e.name) = 0;
 				break;
 		}
+		_ms->log().info("Set ", e.name, " = ", _ms->getData(e.name));
 	}
 }

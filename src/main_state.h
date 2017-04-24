@@ -104,6 +104,7 @@ public:
 
 	void updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, bool disableCmds = false);
 
+	int& getData(const String& name);
 	void startDialog(const String& dialogId);
 
 	EntityRef createTrigger(EntityRef parent, const char* name, const Box2& box);

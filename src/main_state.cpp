@@ -521,6 +521,12 @@ void MainState::resizeEvent() {
 }
 
 
+int& MainState::getData(const String& name) {
+	auto it = _gameData.emplace(name, 0).first;
+	return it->second;
+}
+
+
 void MainState::startDialog(const String& dialogId) {
 	_state = STATE_DIALOG;
 

@@ -123,9 +123,9 @@ public:
 protected:
 	void say(DLine l);
 	void offerChoice();
-	bool check_rec(const DLogic*, const std::unordered_map<String, int>&);
+	bool check_rec(const DLogic*);
 	bool check(const DLogic*);
-	void apply(const std::vector<DEffect>&, std::unordered_map<String, int>&);
+	void apply(const std::vector<DEffect>&);
 
 	MainState* _ms;
 	DNode* _wombatFallback;

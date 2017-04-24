@@ -107,6 +107,8 @@ public:
 	int& getData(const String& name);
 	void startDialog(const String& dialogId);
 
+	void orientPlayer(Direction dir, int frame = 0);
+
 	EntityRef createTrigger(EntityRef parent, const char* name, const Box2& box);
 
 	EntityRef getEntity(const String& name, const EntityRef& ancestor = EntityRef());
@@ -168,6 +170,7 @@ public:
 
 	EntityRef   _player;
 	Direction   _playerDir;
+	float       _playerAnim;
 
 	int _debugCounter;
 };

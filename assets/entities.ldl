@@ -4,13 +4,13 @@ __models__ = {
 		player_model = {
 			transform = translate(0, 0, 0.5)
 			sprite = {
-				texture       = "lair.png"
-				tile_grid     = Vector(3, 2)
+				texture       = "char_player.png"
+				tile_grid     = Vector(3, 4)
 				tile_index    = 0
-				anchor        = Vector(0.5, 0.5)
+				anchor        = Vector(0.5, 0.3)
 			}
 			collision = {
-				shape       = ABox{ min = Vector(-16, -16), size = Vector(32, 32) }
+				shape       = ABox{ min = Vector(-20, -20), size = Vector(40, 40) }
 				hit_mask    = 0x09
 				ignore_mask = 0x00
 			}

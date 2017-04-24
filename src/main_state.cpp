@@ -79,6 +79,9 @@ MainState::MainState(Game* game)
 
       _gui(this),
 
+      _playerDir(UP),
+      _playerAnim(0),
+
       _debugCounter(0)
 {
 	game->serializer().registerType<ShapeSP>();
@@ -230,7 +233,10 @@ void MainState::startGame() {
 	_level = _campLevel;
 
 	//audio()->playMusic(assets()->getAsset("music.ogg"));
-	audio()->playSound(assets()->getAsset("sound.ogg"), 2);
+//	audio()->playSound(assets()->getAsset("sound.ogg"), 2);
+
+	_playerDir  = UP;
+	_playerAnim = 0;
 }
 
 
@@ -315,18 +321,18 @@ void MainState::updateTick() {
 		bump(1) -= std::max(0.01f + pColl->penetration(UP),    0.f);
 		_player.translate(bump);
 
-//		if(!_player.translation2().isApprox(lastPlayerPos)) {
-//			float prevAnim = _playerAnim;
-//			_playerAnim += _playerAnimSpeed / float(TICKRATE);
-//			orientPlayer(_playerDir, 1 + int(_playerAnim) % 2);
+		if(!_player.translation2().isApprox(lastPlayerPos)) {
+			float prevAnim = _playerAnim;
+			_playerAnim += _settings.playerAnimSpeed / float(TICKRATE);
+			orientPlayer(_playerDir, 1 + int(_playerAnim) % 2);
 
 //			if(int(prevAnim) % 2 != int(_playerAnim) % 2)
 //				playSound("footstep.wav");
-//		}
-//		else {
-//			_playerAnim = 0;
-//			orientPlayer(_playerDir);
-//		}
+		}
+		else {
+			_playerAnim = 0;
+			orientPlayer(_playerDir);
+		}
 
 //		_overlay.setEnabled(false);
 //	}
@@ -543,6 +549,14 @@ void MainState::startDialog(const String& dialogId) {
 		_currentDialog->beginDialog();
 	else
 		log().error("Missing dialog \"", dialogId, "\"");
+}
+
+
+void MainState::orientPlayer(Direction dir, int frame) {
+	static int playerTileMap[] = { 9, 3, 0, 6 };
+
+	SpriteComponent* playerSprite = _sprites.get(_player);
+	playerSprite->setTileIndex(playerTileMap[dir] + frame);
 }
 
 

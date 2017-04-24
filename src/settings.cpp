@@ -28,6 +28,7 @@ Settings::Settings()
     , dialogHiddenPos      (0, -1000)
     , characterVisiblePos  (0, 0)
     , characterHiddenPos   (-1000, 0)
+    , playerAnimSpeed      (0.3)
 {
 }
 
@@ -40,6 +41,7 @@ const PropertyList& Settings::properties() const {
 		properties.addProperty("dialog_hidden_pos",       &Settings::dialogHiddenPos);
 		properties.addProperty("character_visible_pos",   &Settings::characterVisiblePos);
 		properties.addProperty("character_hidden_pos",    &Settings::characterHiddenPos);
+		properties.addProperty("player_anim_speed",       &Settings::playerAnimSpeed);
 	}
 	return properties;
 }

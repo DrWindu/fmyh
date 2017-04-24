@@ -3,3 +3,5 @@ dialog_visible_pos      = Vector(521, 25)
 dialog_hidden_pos       = Vector(521, -469)
 character_visible_pos   = Vector(15, 25)
 character_hidden_pos    = Vector(-479, 25)
+
+player_anim_speed = 4

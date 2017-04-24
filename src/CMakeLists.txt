@@ -44,13 +44,18 @@ set(SOURCES
 	logic_language.yy.cpp
 )
 
+set(LIBRARIES
+	lair
+)
+
 if(APPLE)
 	list(APPEND SOURCES fmemopen.cpp)
 endif()
 
+if(WIN32)
+	list(APPEND LIBRARIES winpthread)
+endif()
+
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(${CMAKE_PROJECT_NAME}
-	lair
-	winpthread
-)
+target_link_libraries(${CMAKE_PROJECT_NAME} ${LIBRARIES})

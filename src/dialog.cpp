@@ -352,6 +352,7 @@ void Dialog::offerChoice ()
 		out += "\n";
 	}
 	_ms->_gui.setText(out);
+	_ms->_gui.setCharacterSprite("face_" + _current->lines[0].chara + ".png");
 }
 
 void Dialog::selectUp ()

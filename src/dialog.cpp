@@ -365,7 +365,7 @@ bool Dialog::check_rec (const DLogic* cond, const std::unordered_map<String, int
 bool Dialog::check (const DLogic* cond)
 {
 	//TODO: If exception thrown, set value to zero, warn, and try again.
-	check_rec(cond, _ms->_gameData);
+	return check_rec(cond, _ms->_gameData);
 }
 
 

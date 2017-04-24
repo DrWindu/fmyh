@@ -32,6 +32,20 @@
 #define ONE_SEC (1000000000)
 
 
+void dumpEntities(EntityRef entity, int depth = 0) {
+	dbgLogger.warning(std::string(2*depth, ' '),
+	                  entity.name(), ": ",
+	                  entity.transform()(2, 3), ", ",
+	                  entity.worldTransform()(2, 3));
+
+	EntityRef child = entity.firstChild();
+	while(child.isValid()) {
+		dumpEntities(child, depth + 1);
+		child = child.nextSibling();
+	}
+}
+
+
 MainState::MainState(Game* game)
 	: GameState(game),
 
@@ -316,6 +330,7 @@ void MainState::updateTick() {
 
 //		_overlay.setEnabled(false);
 //	}
+		_level->updateDepth(_player);
 	}
 	else if(_state == STATE_DIALOG) {
 		// Dialog

@@ -89,6 +89,8 @@ public:
 	EntityRef   entity(const std::string& name);
 	EntityRange entities(const std::string& name);
 
+	void updateDepth(EntityRef entity) const;
+	void updateDepth();
 	void computeCollisions();
 
 protected:
@@ -99,6 +101,7 @@ protected:
 
 	EntityRef  _levelRoot;
 	EntityRef  _baseLayer;
+	EntityRef  _objects;
 	EntityMap  _entityMap;
 
 public:

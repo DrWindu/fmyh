@@ -123,6 +123,7 @@ void Level::initialize() {
 	_levelRoot.setEnabled(false);
 
 	_baseLayer = createLayer(0, "layer_base");
+	_objects = _mainState->_entities.createEntity(_levelRoot, "objects");
 
 	for(int oli = 0; oli < _tileMap->nObjectLayer(); ++oli) {
 		for(const Json::Value& obj: _tileMap->objectLayer(oli)["objects"]) {
@@ -154,6 +155,8 @@ void Level::initialize() {
 				_entityMap.emplace(name, entity);
 		}
 	}
+
+	updateDepth();
 }
 
 
@@ -220,7 +223,7 @@ EntityRef Level::createTrigger(const Json::Value &obj, const std::string& name) 
 	Vector2 half = box.sizes() / 2 + Vector2(margin, margin);
 	Box2 hitBox(-half, half);
 
-	EntityRef entity = _mainState->createTrigger(_levelRoot, name.c_str(), hitBox);
+	EntityRef entity = _mainState->createTrigger(_objects, name.c_str(), hitBox);
 	entity.place((Vector3() << box.center(), 0.08).finished());
 	entity.setEnabled(props.get("enabled", true).asBool());
 
@@ -233,14 +236,27 @@ EntityRef Level::createTrigger(const Json::Value &obj, const std::string& name) 
 		cc->setHitMask(cc->hitMask() | HIT_SOLID_FLAG);
 	}
 
-	std::string sprite = props.get("sprite", "").asString();
+	int gid = obj.get("gid", 0).asInt();
+	std::string sprite;
+	int tileH = 1;
+	int tileV = 1;
+	int tileIndex = 0;
+	if(gid) {
+		sprite = _tileMap->tileSet()->asset()->logicPath().utf8String();
+		tileH = TILE_SET_WIDTH;
+		tileV = TILE_SET_HEIGHT;
+		tileIndex = gid - 1;
+	}
+	sprite = props.get("sprite", sprite).asString();
 	if(!sprite.empty()) {
 		SpriteComponent* sc = _mainState->_sprites.addComponent(entity);
 		sc->setTexture(sprite);
-		sc->setTileIndex(props.get("tile_index", 0).asInt());
+
+		tileIndex = props.get("tile_index", tileIndex).asInt();
+		sc->setTileIndex(tileIndex);
 		
-		int tileH = props.get("tile_h", 1).asInt();
-		int tileV = props.get("tile_v", 1).asInt();
+		tileH = props.get("tile_h", tileH).asInt();
+		tileV = props.get("tile_v", tileV).asInt();
 		Vector2 anchor(props.get("anchor_x", 0.5).asFloat(),
 		               props.get("anchor_y", 0.5).asFloat());
 		sc->setTileGridSize(Vector2i(tileH, tileV));
@@ -303,7 +319,7 @@ EntityRef Level::createEntity(const Json::Value &obj, const std::string& name) {
 	if(!model.isValid())
 		return EntityRef();
 
-	EntityRef entity = _mainState->_entities.cloneEntity(model, _levelRoot, name.c_str());
+	EntityRef entity = _mainState->_entities.cloneEntity(model, _objects, name.c_str());
 
 	SpriteComponent* sc = _mainState->_sprites.get(entity);
 	if(sc) {
@@ -367,6 +383,21 @@ EntityRef Level::entity(const std::string& name) {
 
 Level::EntityRange Level::entities(const std::string& name) {
 	return EntityRange(_entityMap, name);
+}
+
+
+void Level::updateDepth(EntityRef entity) const {
+	float depth = entity.transform()(1, 3) / _tileMap->width(0) / float(TILE_SIZE);
+	entity.transform()(2, 3) = lerp(depth, 0.2, 0.1);
+}
+
+void Level::updateDepth() {
+	EntityRef entity = _objects.firstChild();
+
+	for(unsigned count = 1; entity.isValid(); ++count) {
+		updateDepth(entity);
+		entity = entity.nextSibling();
+	}
 }
 
 

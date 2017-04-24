@@ -74,6 +74,7 @@ MainState::MainState(Game* game)
 	_entities.registerComponentManager(&_tileLayers);
 
 	_commands["echo"]        = echoCommand;
+	_commands["talk_to"]     = talkToCommand;
 	_commands["message"]     = messageCommand;
 	_commands["next_level"]  = nextLevelCommand;
 	_commands["teleport"]    = teleportCommand;
@@ -243,20 +244,20 @@ void MainState::updateTick() {
 		}
 
 		// Dialog
-		if (_okInput->justPressed())
-		{
-			if (_currentDialog == NULL)
-			{
-				_currentDialog = new Dialog(this, game()->dataPath() / "dialog_example.ldl");
-				_currentDialog->beginDialog();
-			}
-			else if (_currentDialog->stepDialog())
-				_currentDialog = NULL;
-		}
-		else if (_upInput->justPressed() && _currentDialog)
-			_currentDialog->selectUp();
-		else if (_downInput->justPressed() && _currentDialog)
-			_currentDialog->selectDown();
+//		if (_okInput->justPressed())
+//		{
+//			if (_currentDialog == NULL)
+//			{
+//				_currentDialog = new Dialog(this, game()->dataPath() / "dialog_example.ldl");
+//				_currentDialog->beginDialog();
+//			}
+//			else if (_currentDialog->stepDialog())
+//				_currentDialog = NULL;
+//		}
+//		else if (_upInput->justPressed() && _currentDialog)
+//			_currentDialog->selectUp();
+//		else if (_downInput->justPressed() && _currentDialog)
+//			_currentDialog->selectDown();
 
 		Vector2 lastPlayerPos = _player.translation2();
 		float playerSpeed = 10 * float(TILE_SIZE) / float(TICKRATE);
@@ -273,23 +274,23 @@ void MainState::updateTick() {
 //			dbgLogger.debug("hit: ", hit.entities[0].name(), ", ", hit.entities[1].name());
 
 		EntityRef useEntity;
-//		if(_useInput->justPressed()) {
-//			std::deque<EntityRef> useQueue;
-//			Vector2 pos = _player.worldTransform().translation().head<2>();
-//			_collisions.hitTest(useQueue, pos, HIT_USE_FLAG);
+		if(_okInput->justPressed()) {
+			std::deque<EntityRef> useQueue;
+			Vector2 pos = _player.worldTransform().translation().head<2>();
+			_collisions.hitTest(useQueue, pos, HIT_USE_FLAG);
 
-//			if(useQueue.empty()) {
-//				float o = 28;
-//				Vector2 offset((_playerDir == LEFT)? -o: (_playerDir == RIGHT)? o: 0,
-//				               (_playerDir == DOWN)? -o: (_playerDir == UP   )? o: 0);
-//				_collisions.hitTest(useQueue, pos + offset, HIT_USE_FLAG);
-//			}
+			if(useQueue.empty()) {
+				float o = 28;
+				Vector2 offset((_playerDir == LEFT)? -o: (_playerDir == RIGHT)? o: 0,
+				               (_playerDir == DOWN)? -o: (_playerDir == UP   )? o: 0);
+				_collisions.hitTest(useQueue, pos + offset, HIT_USE_FLAG);
+			}
 
-//			if(!useQueue.empty()) {
-//				useEntity = useQueue.front();
-//				dbgLogger.debug("use: ", useEntity.name());
-//			}
-//		}
+			if(!useQueue.empty()) {
+				useEntity = useQueue.front();
+				dbgLogger.debug("use: ", useEntity.name());
+			}
+		}
 
 		updateTriggers(hitQueue, useEntity);
 

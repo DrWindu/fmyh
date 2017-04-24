@@ -42,6 +42,18 @@ int echoCommand(MainState* state, EntityRef self, int argc, const char** argv) {
 }
 
 
+int talkToCommand(MainState* state, EntityRef self, int argc, const char** argv) {
+	if(argc < 2) {
+		dbgLogger.warning("messageCommand: wrong number of argument.");
+		return -2;
+	}
+
+	state->log().info("Talk to ", argv[1], " (", self.name(), ")");
+
+	return 0;
+}
+
+
 int messageCommand(MainState* state, EntityRef self, int argc, const char** argv) {
 	if(argc < 2) {
 		dbgLogger.warning("messageCommand: wrong number of argument.");

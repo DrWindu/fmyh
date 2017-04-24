@@ -224,9 +224,6 @@ EntityRef Level::createTrigger(const Json::Value &obj, const std::string& name) 
 	entity.place((Vector3() << box.center(), 0.08).finished());
 	entity.setEnabled(props.get("enabled", true).asBool());
 
-	dbgLogger.error("trigger: ", (box.center() + hitBox.min()).transpose(), ", ", hitBox.sizes().transpose());
-
-
 	TriggerComponent* tc = _mainState->_triggers.addComponent(entity);
 	tc->onEnter = props.get("on_enter", "").asString();
 	tc->onExit  = props.get("on_exit",  "").asString();
@@ -242,11 +239,16 @@ EntityRef Level::createTrigger(const Json::Value &obj, const std::string& name) 
 		sc->setTexture(sprite);
 		sc->setTileIndex(props.get("tile_index", 0).asInt());
 		
-		int tileH = props.get("tile_h", 4).asInt();
-		int tileV = props.get("tile_v", 2).asInt();
+		int tileH = props.get("tile_h", 1).asInt();
+		int tileV = props.get("tile_v", 1).asInt();
+		Vector2 anchor(props.get("anchor_x", 0.5).asFloat(),
+		               props.get("anchor_y", 0.5).asFloat());
 		sc->setTileGridSize(Vector2i(tileH, tileV));
-		sc->setAnchor(Vector2(.5, .5));
+		sc->setAnchor(anchor);
 		sc->setBlendingMode(BLEND_ALPHA);
+
+		float scalex = props.get("scale_x", 1).asFloat();
+		entity.transform().matrix()(0, 0) = scalex;
 	}
 
 	return entity;

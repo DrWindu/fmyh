@@ -47,6 +47,8 @@ MainState::MainState(Game* game)
 
       _camera(),
 
+      _state(STATE_PLAYING),
+
       _initialized(false),
       _running(false),
       _loop(sys()),
@@ -223,10 +225,14 @@ void MainState::updateTick() {
 
 	_inputs.sync();
 
-//	if(_state == STATE_PLAY) {
+	if(_quitInput->justPressed()) {
+		quit();
+	}
+
+	if(_state == STATE_PLAYING) {
 		// Player movement
 		Vector2 offset(0, 0);
-		if(_upInput->isPressed() && !_currentDialog) {
+		if(_upInput->isPressed()) {
 			offset(1) += 1;
 			_playerDir  = UP;
 		}
@@ -234,7 +240,7 @@ void MainState::updateTick() {
 			offset(0) -= 1;
 			_playerDir  = LEFT;
 		}
-		if(_downInput->isPressed() && !_currentDialog) {
+		if(_downInput->isPressed()) {
 			offset(1) -= 1;
 			_playerDir  = DOWN;
 		}
@@ -242,22 +248,6 @@ void MainState::updateTick() {
 			offset(0) += 1;
 			_playerDir  = RIGHT;
 		}
-
-		// Dialog
-//		if (_okInput->justPressed())
-//		{
-//			if (_currentDialog == NULL)
-//			{
-//				_currentDialog = new Dialog(this, game()->dataPath() / "dialog_example.ldl");
-//				_currentDialog->beginDialog();
-//			}
-//			else if (_currentDialog->stepDialog())
-//				_currentDialog = NULL;
-//		}
-//		else if (_upInput->justPressed() && _currentDialog)
-//			_currentDialog->selectUp();
-//		else if (_downInput->justPressed() && _currentDialog)
-//			_currentDialog->selectDown();
 
 		Vector2 lastPlayerPos = _player.translation2();
 		float playerSpeed = 10 * float(TILE_SIZE) / float(TICKRATE);
@@ -326,44 +316,23 @@ void MainState::updateTick() {
 
 //		_overlay.setEnabled(false);
 //	}
-
-	if(_quitInput->justPressed()) {
-		quit();
 	}
-/*
-	if(_okInput->justPressed()) {
-		switch(_debugCounter % 4) {
-		case 0:
-			_gui.showDialog();
-			break;
-		case 1:
-			_gui.showCharacter();
-			break;
-		case 2:
-			_gui.hideDialog();
-			break;
-		case 3:
-			_gui.hideCharacter();
-			break;
+	else if(_state == STATE_DIALOG) {
+		// Dialog
+		if(_currentDialog && _okInput->justPressed())
+		{
+			if (_currentDialog->stepDialog())
+				_currentDialog.reset();
 		}
+		else if (_upInput->justPressed() && _currentDialog)
+			_currentDialog->selectUp();
+		else if (_downInput->justPressed() && _currentDialog)
+			_currentDialog->selectDown();
 
-		int index = (_debugCounter / 4) % 8;
-		EntityRef face = getEntity("face");
-		SpriteComponent* sprite = _sprites.get(face);
-		switch(index) {
-		case 0: sprite->setTexture("face_alien.png"); break;
-		case 1: sprite->setTexture("face_ami.png"); break;
-		case 2: sprite->setTexture("face_ant.png"); break;
-		case 3: sprite->setTexture("face_dragon.png"); break;
-		case 4: sprite->setTexture("face_matt.png"); break;
-		case 5: sprite->setTexture("face_player.png"); break;
-		case 6: sprite->setTexture("face_queen.png"); break;
-		case 7: sprite->setTexture("face_regis.png"); break;
+		if(!_currentDialog) {
+			_state = STATE_PLAYING;
 		}
-
-		++_debugCounter;
 	}
-*/
 }
 
 
@@ -534,6 +503,25 @@ void MainState::resizeEvent() {
 	Box3 viewBox(Vector3(0, 0, 0),
 	             Vector3(1920, 1080, 1));
 	_camera.setViewBox(viewBox);
+}
+
+
+void MainState::startDialog(const String& dialogId) {
+	_state = STATE_DIALOG;
+
+	auto dialogIt = _dialogs.find(dialogId);
+	if(dialogIt == _dialogs.end()) {
+		Path file = Path("dialogs") / Path(dialogId + ".ldl");
+		log().info("Load dialog \"", file, "\"");
+		DialogSP dialog = std::make_shared<Dialog>(this, game()->dataPath() / file);
+		dialogIt = _dialogs.emplace_hint(dialogIt, dialogId, dialog);
+	}
+
+	_currentDialog = dialogIt->second;
+	if(_currentDialog)
+		_currentDialog->beginDialog();
+	else
+		log().error("Missing dialog \"", dialogId, "\"");
 }
 
 

@@ -22,6 +22,8 @@
 #ifndef _LAIR_DEMO_TEMPLATE_DIALOG_H
 #define _LAIR_DEMO_TEMPLATE_DIALOG_H
 
+#include <memory>
+
 #include <lair/core/path.h>
 
 #include "main_state.h"
@@ -130,5 +132,7 @@ protected:
 	std::vector<String> _choices;
 	int _choice;
 };
+
+typedef std::shared_ptr<Dialog> DialogSP;
 
 #endif

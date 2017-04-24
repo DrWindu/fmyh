@@ -23,6 +23,8 @@
 #define MAIN_STATE_H
 
 
+#include <memory>
+
 #include <lair/core/signal.h>
 
 #include <lair/utils/game_state.h>
@@ -61,11 +63,18 @@ using namespace lair;
 class Game;
 class Dialog;
 
+typedef std::shared_ptr<Dialog> DialogSP;
 
 typedef int (*Command)(MainState* state, EntityRef self, int argc, const char** argv);
 typedef std::unordered_map<std::string, Command> CommandMap;
+typedef std::unordered_map<String, DialogSP> DialogMap;
 
 typedef std::unordered_map<Path, int, boost::hash<Path>> SoundMap;
+
+enum State {
+	STATE_PLAYING,
+	STATE_DIALOG,
+};
 
 
 class MainState : public GameState {
@@ -94,6 +103,8 @@ public:
 	int exec(int argc, const char** argv, EntityRef self = EntityRef());
 
 	void updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, bool disableCmds = false);
+
+	void startDialog(const String& dialogId);
 
 	EntityRef createTrigger(EntityRef parent, const char* name, const Box2& box);
 
@@ -132,7 +143,7 @@ public:
 	int64       _fpsTime;
 	unsigned    _fpsCount;
 
-	Dialog*     _currentDialog;
+	State       _state;
 
 	Input*      _quitInput;
 	Input*      _okInput;
@@ -142,6 +153,8 @@ public:
 	Input*      _rightInput;
 
 	Gui         _gui;
+	DialogMap   _dialogs;
+	DialogSP    _currentDialog;
 
 	LevelSP     _campLevel;
 

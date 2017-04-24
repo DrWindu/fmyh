@@ -34,9 +34,10 @@ Gui::Gui(MainState* mainState)
 void Gui::initialize() {
 	_initialized = true;
 
-	_dialog    = _mainState->getEntity("dialog");
-	_text      = _mainState->getEntity("dialog_text");
-	_character = _mainState->getEntity("gui_character");
+	_dialog        = _mainState->getEntity("dialog");
+	_text          = _mainState->getEntity("dialog_text");
+	_character     = _mainState->getEntity("gui_character");
+	_characterFace = _mainState->getEntity("face");
 
 	if(_dialog.isValid())
 		_dialog.place(_mainState->_settings.dialogHiddenPos);
@@ -84,7 +85,7 @@ void Gui::setText(const String& message) {
 }
 
 void Gui::setCharacterSprite(const Path& path) {
-	_mainState->_sprites.get(_character)->setTexture(path);
+	_mainState->_sprites.get(_characterFace)->setTexture(path);
 }
 
 bool Gui::isCharacterVisible() const {

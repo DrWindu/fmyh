@@ -136,6 +136,7 @@ public:
 	EntityRef _dialog;
 	EntityRef _text;
 	EntityRef _character;
+	EntityRef _characterFace;
 
 	ValueAnimation<Vector2> _dialogAnim;
 	ValueAnimation<Vector2> _characterAnim;

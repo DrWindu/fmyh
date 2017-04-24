@@ -1,41 +1,41 @@
 npc_greet = {
-	lines = [ "NPC", "Hello, player !" ]
+	lines = [ "ant", "Hello, player !" ]
 	next = [ hub ]
 }
 
 hub = {
-	lines = ("NPC", "What do you want ?")
+	lines = ("ant", "What do you want ?")
 	next = (ask_how_0, buy_doodad_0, sell_doodad_0, say_bye_0)
 }
 
 ask_how_0 = {
 	conditions = "@Pick"
-	lines = ("PC", "How are you, NPC ?")
+	lines = ("player", "How are you, Ant ?")
 	next = (ask_how_1, ask_how_pissed)
 }
 
 ask_how_1 = {
 	conditions = "!say_fine"
-	lines = ("NPC", "I'm fine !")
+	lines = ("ant", "I'm fine !")
 	effects = ("say_fine")
 	next = (hub)
 }
 
 ask_how_pissed = {
 	conditions = "say_fine"
-	lines = ("NPC", "Like I said, I'm fine.")
+	lines = ("ant", "Like I said, I'm fine.")
 	next = (hub)
 }
 
 buy_doodad_0 = {
 	conditions = "@Pick"
-	lines = ("PC", "I'll take this doodad.")
+	lines = ("player", "I'll take this doodad.")
 	next = (buy_doodad_do, buy_doodad_cant)
 }
 
 buy_doodad_do = {
 	conditions = ">Munies[9]"
-	lines = ("NPC", "Of course sir !")
+	lines = ("ant", "Of course sir !")
 	effects = ("-Munies[10]", "+Doodad[1]")
 	next = (hub)
 }
@@ -43,21 +43,21 @@ buy_doodad_do = {
 buy_doodad_cant = {
 	conditions = "<Munies[10]"
 	lines = (
-		("NPC", "That'll be 10 munies."),
-		("PC", "Wut ?! 10 munies ?! This is outrageous ! I don't have that kind of munies."),
-		("NPC", "Your problem, not mine.") )
+		("ant", "That'll be 10 munies."),
+		("player", "Wut ?! 10 munies ?! This is outrageous ! I don't have that kind of munies."),
+		("ant", "Your problem, not mine.") )
 	next = (hub)
 }
 
 sell_doodad_0 = {
 	conditions = "@Pick >Doodad[0]"
-	lines = ("PC", "I sell you this doodad.")
+	lines = ("player", "I sell you this doodad.")
 	effects = ("-Doodad[1]", "+Munies[5]")
 	next = (hub)
 }
 
 say_bye_0 = {
 	conditions = "@Pick"
-	lines = ("NPC", "Bye for now !")
+	lines = ("ant", "Bye for now !")
 	effects = (npc_talked)
 }

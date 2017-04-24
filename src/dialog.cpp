@@ -228,12 +228,14 @@ void Dialog::say (DLine l)
 {
 	//TODO: Draw facez.
 	_ms->_gui.setText(l.text);
+	_ms->_gui.setCharacterSprite("face_" + l.chara + ".png");
 }
 
 void Dialog::beginDialog ()
 {
 	_current = _start;
 	_ms->_gui.showDialog();
+	_ms->_gui.showCharacter();
 	say(_current->lines[0]);
 }
 
@@ -242,6 +244,7 @@ bool Dialog::stepDialog ()
 	if (_current->next.size() == 0)
 	{
 		_ms->_gui.hideDialog();
+		_ms->_gui.hideCharacter();
 		_current = NULL;
 		_choice = -1;
 		return true;
@@ -288,7 +291,7 @@ void Dialog::offerChoice ()
 void Dialog::selectUp ()
 {
 	if (_choice == -1) return;
-	_choice = std::max(_choice-1, 0);
+	_choice = (_choice-1+_choices.size()) % _choices.size();
 	offerChoice();
 }
 
@@ -296,6 +299,6 @@ void Dialog::selectDown ()
 {
 	if (_choice == -1) return;
 	//FIXME: Chosen by fair dice roll.
-	_choice = std::min(_choice+1, (int) _choices.size()-1);
+	_choice = (_choice+1) % _choices.size();
 	offerChoice();
 }

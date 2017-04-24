@@ -217,8 +217,11 @@ Dialog::Dialog(MainState* ms, const Path& filename)
 				if (nodes[k]->id == nexts[i][j])
 					nodes[i]->next.push_back(nodes[k]);
 
-	_start = nodes[0];
 	_ms = ms;
+	_wombatFallback = new DNode();
+	_wombatFallback->lines.push_back({"NPC", "I have nothing to say to you because you are not a wombat."});
+	_start = nodes[0];
+	_line = 0;
 	_choice = -1;
 }
 
@@ -239,33 +242,59 @@ void Dialog::beginDialog ()
 
 bool Dialog::stepDialog ()
 {
-	if (_current->next.size() == 0)
-	{
-		_ms->_gui.hideDialog();
-		_current = NULL;
-		_choice = -1;
-		return true;
-	}
-
+	// Step forward: in a choice prompt ?
 	if (_choice == -1)
-		_current = _current->next[0];
+	{
+		//No: Iterate on current lines...
+		_line++;
+
+		//...or go to next step if needed.
+		if (_line >= _current->lines.size())
+		{
+			_line = 0;
+			// No next dialog: over and out.
+			if (_current->next.size() == 0)
+			{
+				_ms->_gui.hideDialog();
+				_current = NULL;
+				_choice = -1;
+				return true;
+			}
+
+			// Pick first allowed next dialog... if any.
+			bool panic = true;
+			for (int i = 0 ; i < _current->next.size() ; i++)
+				if (check(_current->next[i]->cond, _ms->_gameData))
+				{
+					panic = false;
+					_current = _current->next[i];
+					break;
+				}
+
+			if (panic) // Impossibruh !
+				_current = _wombatFallback;
+		}
+	}
 	else
 	{
-		//FIXME: Shit will break badly if some choice have prerequisites.
+		// Yes: Pick currently selected choice.
 		_current = _current->next[_choice];
 		_choices.clear();
 		_choice = -1;
 	}
 
+	// Display new step : reached a choice prompt ?
 	if (_current->next.size() && _current->next[0]->choice)
 	{
+		// Yes: Build and display list of available choices (the rest are hidden).
 		for (int i = 0 ; i < _current->next.size() ; i++)
-			_choices.push_back(_current->next[i]->lines[0].text);
+			if (check(_current->next[i]->cond, _ms->_gameData))
+				_choices.push_back(_current->next[i]->lines[0].text);
 		_choice = 0;
 		offerChoice();
 	}
-	else
-		say(_current->lines[0]);
+	else // Display current line.
+		say(_current->lines[_line]);
 	return false;
 }
 
@@ -295,7 +324,32 @@ void Dialog::selectUp ()
 void Dialog::selectDown ()
 {
 	if (_choice == -1) return;
-	//FIXME: Chosen by fair dice roll.
 	_choice = std::min(_choice+1, (int) _choices.size()-1);
 	offerChoice();
+}
+
+bool Dialog::check (DLogic* cond, std::unordered_map<String, int> data)
+{
+	if (!cond) return true;
+	switch (cond->t)
+	{
+		case L_NOT:
+			return !check(cond->left, data);
+		case L_AND:
+			return check(cond->left, data) && check(cond->right, data);
+		case L_OR:
+			return check(cond->left, data) || check(cond->right, data);
+		case C_GREATER:
+			return data[cond->name] > cond->val;
+		case C_LESSER:
+			return data[cond->name] < cond->val;
+		case C_EQUAL:
+			return data[cond->name] == cond->val;
+		case YFLAG:
+			return data[cond->name];
+		case NFLAG:
+			return !data[cond->name];
+		default:
+			assert (false);
+	}
 }

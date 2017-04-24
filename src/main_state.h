@@ -132,6 +132,7 @@ public:
 	int64       _fpsTime;
 	unsigned    _fpsCount;
 
+	std::unordered_map<String,int> _gameData;
 	Dialog*     _currentDialog;
 
 	Input*      _quitInput;

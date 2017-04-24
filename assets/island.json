@@ -217,11 +217,13 @@
                  "name":"tent",
                  "properties":
                     {
+                     "on_use":"talk_to tent",
                      "solid":true,
                      "sprite":"tent.png"
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool",
                      "sprite":"string"
                     },
@@ -239,10 +241,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -258,11 +262,13 @@
                  "name":"tent",
                  "properties":
                     {
+                     "on_use":"talk_to tent",
                      "solid":true,
                      "sprite":"tent.png"
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool",
                      "sprite":"string"
                     },
@@ -279,11 +285,13 @@
                  "name":"tent",
                  "properties":
                     {
+                     "on_use":"talk_to tent",
                      "solid":true,
                      "sprite":"tent.png"
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool",
                      "sprite":"string"
                     },
@@ -300,11 +308,13 @@
                  "name":"tent",
                  "properties":
                     {
+                     "on_use":"talk_to tent",
                      "solid":true,
                      "sprite":"tent.png"
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool",
                      "sprite":"string"
                     },
@@ -322,10 +332,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -342,10 +354,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -362,10 +376,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -382,10 +398,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -402,10 +420,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -422,10 +442,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -442,10 +464,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -462,10 +486,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -482,10 +508,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -502,10 +530,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -522,10 +552,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -542,10 +574,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -562,10 +596,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -582,10 +618,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -602,10 +640,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -622,10 +662,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -642,10 +684,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -662,10 +706,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -682,10 +728,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -702,10 +750,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -722,10 +772,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -742,10 +794,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -762,10 +816,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -782,10 +838,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -802,10 +860,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -822,10 +882,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -842,10 +904,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -862,10 +926,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -882,10 +948,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -902,10 +970,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -922,10 +992,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -942,10 +1014,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -962,10 +1036,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -982,10 +1058,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1002,10 +1080,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1022,10 +1102,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1042,10 +1124,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1062,10 +1146,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1082,10 +1168,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1102,10 +1190,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1122,10 +1212,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1142,10 +1234,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1162,10 +1256,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1182,10 +1278,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1202,10 +1300,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1222,10 +1322,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1242,10 +1344,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1262,10 +1366,12 @@
                  "name":"rock",
                  "properties":
                     {
+                     "on_use":"talk_to rock",
                      "solid":true
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1282,10 +1388,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1302,10 +1410,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1322,10 +1432,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1342,10 +1454,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1362,10 +1476,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1382,10 +1498,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1402,10 +1520,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1422,10 +1542,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1442,10 +1564,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1462,10 +1586,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1482,10 +1608,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1502,10 +1630,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1522,10 +1652,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1542,10 +1674,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1562,10 +1696,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1582,10 +1718,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1602,10 +1740,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1622,10 +1762,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1642,10 +1784,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1662,10 +1806,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1682,10 +1828,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1702,10 +1850,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1722,10 +1872,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1742,10 +1894,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1762,10 +1916,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1782,10 +1938,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1802,10 +1960,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1822,10 +1982,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1842,10 +2004,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1862,10 +2026,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1882,10 +2048,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1902,10 +2070,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1922,10 +2092,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1942,10 +2114,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1962,10 +2136,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -1982,10 +2158,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2002,10 +2180,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2022,10 +2202,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2042,10 +2224,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2062,10 +2246,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2082,10 +2268,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2102,10 +2290,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2122,10 +2312,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2142,10 +2334,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2162,10 +2356,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2182,10 +2378,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2202,10 +2400,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2222,10 +2422,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2242,10 +2444,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2262,10 +2466,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2282,10 +2488,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2302,10 +2510,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2322,10 +2532,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2342,10 +2554,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2362,10 +2576,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2382,10 +2598,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2402,10 +2620,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2422,10 +2642,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2442,10 +2664,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2462,10 +2686,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2482,10 +2708,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2502,10 +2730,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2522,10 +2752,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2542,10 +2774,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2562,10 +2796,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2582,10 +2818,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2602,10 +2840,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2622,10 +2862,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2642,10 +2884,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2662,10 +2906,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2682,10 +2928,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2702,10 +2950,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2722,10 +2972,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2742,10 +2994,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2762,10 +3016,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2782,10 +3038,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2802,10 +3060,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2822,10 +3082,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2842,10 +3104,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2862,10 +3126,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2882,10 +3148,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2902,10 +3170,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2922,10 +3192,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2942,10 +3214,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2962,10 +3236,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -2982,10 +3258,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3002,10 +3280,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3022,10 +3302,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3042,10 +3324,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3062,10 +3346,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3082,10 +3368,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3102,10 +3390,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3122,10 +3412,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3142,10 +3434,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3162,10 +3456,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3182,10 +3478,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3202,10 +3500,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3222,10 +3522,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3242,10 +3544,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3262,10 +3566,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3282,10 +3588,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3302,10 +3610,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -3322,10 +3632,12 @@
                  "name":"grass",
                  "properties":
                     {
+                     "on_use":"talk_to grass",
                      "solid":false
                     },
                  "propertytypes":
                     {
+                     "on_use":"string",
                      "solid":"bool"
                     },
                  "rotation":0,
@@ -6902,7 +7214,7 @@
          "x":0,
          "y":0
         }],
- "nextobjectid":306,
+ "nextobjectid":307,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tileheight":48,

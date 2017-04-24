@@ -225,6 +225,8 @@ Game* MainState::game() {
 
 
 void MainState::startGame() {
+	loadData("game.ldl");
+
 	_player = _entities.cloneEntity(getEntity("player_model"), _scene, "player");
 
 	_campLevel->initialize();
@@ -531,6 +533,40 @@ void MainState::resizeEvent() {
 int& MainState::getData(const String& name) {
 	auto it = _gameData.emplace(name, 0).first;
 	return it->second;
+}
+
+
+void MainState::loadData(const Path& path) {
+	Path realPath = game()->dataPath() / path;
+	Path::IStream in(realPath.native().c_str());
+	if(in.good()) {
+		log().info("Read data \"", realPath, "\"...");
+		ErrorList errors;
+		LdlParser parser(&in, path.utf8String(), &errors, LdlParser::CTX_MAP);
+
+		if(parser.valueType() == LdlParser::TYPE_MAP) {
+			parser.enter();
+			while(parser.valueType() != LdlParser::TYPE_END) {
+				if(parser.valueType() == LdlParser::TYPE_INT) {
+					getData(parser.getKey()) = parser.getInt();
+					parser.next();
+				}
+				else {
+					parser.error("Expected Int, got ", parser.valueTypeName());
+					parser.skip();
+				}
+			}
+			parser.leave();
+		}
+		else {
+			parser.error("Expected VarMap, got ", parser.valueTypeName());
+		}
+
+		errors.log(log());
+	}
+	else {
+		log().error("Failed to read settings (\"", path, "\").");
+	}
 }
 
 

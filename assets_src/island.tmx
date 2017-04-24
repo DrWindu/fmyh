@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="240" tilewidth="48" tileheight="48" nextobjectid="306">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="240" height="240" tilewidth="48" tileheight="48" nextobjectid="307">
  <tileset firstgid="1" name="tileset" tilewidth="48" tileheight="48" tilecount="256" columns="16">
   <image source="../assets/tileset.png" width="768" height="768"/>
   <terraintypes>
@@ -381,785 +381,941 @@
   </object>
   <object id="11" name="tent" type="trigger" x="5376" y="3648" width="96" height="96">
    <properties>
+    <property name="on_use" value="talk_to tent"/>
     <property name="solid" type="bool" value="true"/>
     <property name="sprite" value="tent.png"/>
    </properties>
   </object>
   <object id="16" name="rock" type="trigger" gid="193" x="5616" y="4272" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="19" name="tent" type="trigger" x="5952" y="3456" width="96" height="96">
    <properties>
+    <property name="on_use" value="talk_to tent"/>
     <property name="solid" type="bool" value="true"/>
     <property name="sprite" value="tent.png"/>
    </properties>
   </object>
   <object id="20" name="tent" type="trigger" x="6192" y="4080" width="96" height="96">
    <properties>
+    <property name="on_use" value="talk_to tent"/>
     <property name="solid" type="bool" value="true"/>
     <property name="sprite" value="tent.png"/>
    </properties>
   </object>
   <object id="21" name="tent" type="trigger" x="5376" y="4032" width="96" height="96">
    <properties>
+    <property name="on_use" value="talk_to tent"/>
     <property name="solid" type="bool" value="true"/>
     <property name="sprite" value="tent.png"/>
    </properties>
   </object>
   <object id="22" name="rock" type="trigger" gid="193" x="4992" y="4848" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="23" name="rock" type="trigger" gid="193" x="5136" y="4992" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="24" name="rock" type="trigger" gid="193" x="5520" y="5136" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="25" name="rock" type="trigger" gid="193" x="4944" y="5328" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="26" name="rock" type="trigger" gid="193" x="6336" y="5040" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="27" name="rock" type="trigger" gid="193" x="7008" y="3936" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="28" name="rock" type="trigger" gid="193" x="6288" y="3840" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="29" name="rock" type="trigger" gid="193" x="6240" y="3696" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="30" name="rock" type="trigger" gid="193" x="6384" y="3744" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="31" name="rock" type="trigger" gid="193" x="5712" y="3360" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="32" name="rock" type="trigger" gid="193" x="5088" y="3216" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="33" name="rock" type="trigger" gid="193" x="4656" y="2832" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="34" name="rock" type="trigger" gid="193" x="4896" y="2880" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="35" name="rock" type="trigger" gid="193" x="5520" y="2976" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="36" name="rock" type="trigger" gid="193" x="5760" y="2928" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="37" name="rock" type="trigger" gid="193" x="6096" y="2928" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="38" name="rock" type="trigger" gid="193" x="6336" y="2784" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="39" name="rock" type="trigger" gid="193" x="6576" y="3072" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="40" name="rock" type="trigger" gid="193" x="6768" y="2832" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="41" name="rock" type="trigger" gid="193" x="7008" y="2976" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="42" name="rock" type="trigger" gid="193" x="7680" y="3072" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="43" name="rock" type="trigger" gid="193" x="7920" y="2784" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="44" name="rock" type="trigger" gid="193" x="7632" y="2640" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="45" name="rock" type="trigger" gid="193" x="8256" y="2592" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="46" name="rock" type="trigger" gid="193" x="8736" y="2544" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="47" name="rock" type="trigger" gid="193" x="8976" y="2832" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="48" name="rock" type="trigger" gid="193" x="8544" y="3168" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="49" name="rock" type="trigger" gid="193" x="7776" y="3792" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="50" name="rock" type="trigger" gid="193" x="7344" y="4752" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="51" name="rock" type="trigger" gid="193" x="3984" y="2208" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="52" name="rock" type="trigger" gid="193" x="4128" y="2448" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="53" name="rock" type="trigger" gid="193" x="4080" y="2784" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="54" name="rock" type="trigger" gid="193" x="3648" y="1776" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="55" name="rock" type="trigger" gid="193" x="3744" y="1920" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="56" name="rock" type="trigger" gid="193" x="2496" y="2592" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="57" name="rock" type="trigger" gid="193" x="2832" y="3984" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="58" name="rock" type="trigger" gid="193" x="1440" y="5376" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="59" name="rock" type="trigger" gid="193" x="1584" y="5232" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="60" name="rock" type="trigger" gid="193" x="1968" y="5568" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="61" name="rock" type="trigger" gid="193" x="1248" y="3120" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="62" name="rock" type="trigger" gid="193" x="5328" y="6192" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="63" name="rock" type="trigger" gid="193" x="5040" y="7056" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="64" name="rock" type="trigger" gid="193" x="8448" y="6672" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="65" name="rock" type="trigger" gid="193" x="9648" y="10224" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="66" name="rock" type="trigger" gid="193" x="9744" y="10272" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="67" name="rock" type="trigger" gid="193" x="9648" y="10368" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="68" name="rock" type="trigger" gid="193" x="9504" y="7920" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="69" name="rock" type="trigger" gid="193" x="9120" y="4752" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to rock"/>
     <property name="solid" type="bool" value="true"/>
    </properties>
   </object>
   <object id="70" name="grass" type="trigger" gid="194" x="8112" y="5520" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="71" name="grass" type="trigger" gid="194" x="7824" y="5760" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="72" name="grass" type="trigger" gid="194" x="7344" y="6048" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="73" name="grass" type="trigger" gid="194" x="7152" y="6336" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="74" name="grass" type="trigger" gid="194" x="8880" y="6000" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="75" name="grass" type="trigger" gid="194" x="8448" y="4608" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="76" name="grass" type="trigger" gid="194" x="8880" y="4080" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="77" name="grass" type="trigger" gid="194" x="8784" y="5088" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="78" name="grass" type="trigger" gid="194" x="9168" y="4080" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="79" name="grass" type="trigger" gid="194" x="9504" y="5424" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="80" name="grass" type="trigger" gid="194" x="9360" y="6192" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="81" name="grass" type="trigger" gid="194" x="8976" y="3696" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="82" name="grass" type="trigger" gid="194" x="8640" y="3936" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="83" name="grass" type="trigger" gid="194" x="8448" y="4128" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="84" name="grass" type="trigger" gid="194" x="8352" y="6096" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="85" name="grass" type="trigger" gid="194" x="7488" y="6576" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="86" name="grass" type="trigger" gid="194" x="7824" y="6288" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="87" name="grass" type="trigger" gid="194" x="7488" y="7344" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="88" name="grass" type="trigger" gid="194" x="7056" y="7296" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="89" name="grass" type="trigger" gid="194" x="6912" y="7440" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="90" name="grass" type="trigger" gid="194" x="6576" y="7632" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="91" name="grass" type="trigger" gid="194" x="6336" y="7632" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="92" name="grass" type="trigger" gid="194" x="6000" y="7824" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="93" name="grass" type="trigger" gid="194" x="5856" y="7968" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="94" name="grass" type="trigger" gid="194" x="6768" y="6672" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="95" name="grass" type="trigger" gid="194" x="6576" y="6960" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="96" name="grass" type="trigger" gid="194" x="7968" y="6960" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="97" name="grass" type="trigger" gid="194" x="8496" y="7152" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="98" name="grass" type="trigger" gid="194" x="9504" y="6624" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="99" name="grass" type="trigger" gid="194" x="9024" y="7488" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="100" name="grass" type="trigger" gid="194" x="7968" y="7536" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="101" name="grass" type="trigger" gid="194" x="8928" y="7968" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="102" name="grass" type="trigger" gid="194" x="9360" y="7104" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="103" name="grass" type="trigger" gid="194" x="8208" y="7872" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="104" name="grass" type="trigger" gid="194" x="8832" y="8208" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="105" name="grass" type="trigger" gid="194" x="9120" y="8688" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="106" name="grass" type="trigger" gid="194" x="9264" y="9216" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="107" name="grass" type="trigger" gid="194" x="9168" y="9552" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="108" name="grass" type="trigger" gid="194" x="8880" y="9648" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="109" name="grass" type="trigger" gid="194" x="8496" y="10032" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="110" name="grass" type="trigger" gid="194" x="8880" y="9888" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="111" name="grass" type="trigger" gid="194" x="9456" y="10224" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="112" name="grass" type="trigger" gid="194" x="9504" y="9936" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="113" name="grass" type="trigger" gid="194" x="9744" y="9936" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="114" name="grass" type="trigger" gid="194" x="9936" y="9984" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="115" name="grass" type="trigger" gid="194" x="9984" y="10176" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="116" name="grass" type="trigger" gid="194" x="9984" y="10368" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="117" name="grass" type="trigger" gid="194" x="9888" y="10464" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="118" name="grass" type="trigger" gid="194" x="9744" y="10560" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="119" name="grass" type="trigger" gid="194" x="9456" y="10512" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="120" name="grass" type="trigger" gid="194" x="8352" y="10224" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="121" name="grass" type="trigger" gid="194" x="7920" y="10272" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="122" name="grass" type="trigger" gid="194" x="7440" y="10464" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="123" name="grass" type="trigger" gid="194" x="8160" y="10512" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="124" name="grass" type="trigger" gid="194" x="7920" y="10512" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="125" name="grass" type="trigger" gid="194" x="7008" y="10416" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="126" name="grass" type="trigger" gid="194" x="6576" y="10512" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="127" name="grass" type="trigger" gid="194" x="6240" y="10320" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="128" name="grass" type="trigger" gid="194" x="5760" y="10560" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="129" name="grass" type="trigger" gid="194" x="5712" y="10272" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="130" name="grass" type="trigger" gid="194" x="5280" y="10512" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="131" name="grass" type="trigger" gid="194" x="4800" y="10032" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="132" name="grass" type="trigger" gid="194" x="5232" y="10176" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="133" name="grass" type="trigger" gid="194" x="5472" y="9888" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="134" name="grass" type="trigger" gid="194" x="4992" y="9648" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="135" name="grass" type="trigger" gid="194" x="5328" y="9264" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="136" name="grass" type="trigger" gid="194" x="5424" y="8640" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="137" name="grass" type="trigger" gid="194" x="5280" y="8256" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="138" name="grass" type="trigger" gid="194" x="5424" y="7920" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="139" name="grass" type="trigger" gid="194" x="5616" y="8208" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="140" name="grass" type="trigger" gid="194" x="5760" y="7488" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="141" name="grass" type="trigger" gid="194" x="6048" y="7200" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="142" name="grass" type="trigger" gid="194" x="6576" y="7344" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="143" name="grass" type="trigger" gid="194" x="7200" y="6864" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="144" name="grass" type="trigger" gid="194" x="5520" y="6720" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="145" name="grass" type="trigger" gid="194" x="4944" y="6144" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="146" name="grass" type="trigger" gid="194" x="5952" y="5376" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="147" name="grass" type="trigger" gid="194" x="6144" y="4464" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="148" name="grass" type="trigger" gid="194" x="5136" y="3888" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="149" name="grass" type="trigger" gid="194" x="5136" y="3552" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="150" name="grass" type="trigger" gid="194" x="6432" y="3360" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="151" name="grass" type="trigger" gid="194" x="7488" y="3312" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="152" name="grass" type="trigger" gid="194" x="8208" y="3024" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="153" name="grass" type="trigger" gid="194" x="7392" y="4416" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="154" name="grass" type="trigger" gid="194" x="6960" y="4656" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="155" name="grass" type="trigger" gid="194" x="4704" y="4128" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="156" name="grass" type="trigger" gid="194" x="4464" y="3456" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="157" name="grass" type="trigger" gid="194" x="1632" y="2592" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="158" name="grass" type="trigger" gid="194" x="1536" y="3168" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="159" name="grass" type="trigger" gid="194" x="1248" y="4032" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="160" name="grass" type="trigger" gid="194" x="2352" y="4416" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="161" name="grass" type="trigger" gid="194" x="3360" y="3936" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="162" name="grass" type="trigger" gid="194" x="3168" y="2832" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="163" name="grass" type="trigger" gid="194" x="2448" y="3216" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="164" name="grass" type="trigger" gid="194" x="3312" y="4944" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="165" name="grass" type="trigger" gid="194" x="3792" y="4608" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="166" name="grass" type="trigger" gid="194" x="3648" y="5760" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="167" name="grass" type="trigger" gid="194" x="2880" y="5808" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="168" name="grass" type="trigger" gid="194" x="2736" y="5136" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="169" name="grass" type="trigger" gid="194" x="1968" y="5856" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="170" name="grass" type="trigger" gid="194" x="1344" y="5040" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="171" name="grass" type="trigger" gid="194" x="4176" y="4992" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>
   <object id="172" name="grass" type="trigger" gid="194" x="3984" y="3648" width="48" height="48">
    <properties>
+    <property name="on_use" value="talk_to grass"/>
     <property name="solid" type="bool" value="false"/>
    </properties>
   </object>

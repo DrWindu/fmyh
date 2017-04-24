@@ -40,10 +40,18 @@ extern bool pick;
 
 using namespace lair;
 
-void parseLogic (const String mess, DNode& n)
+static LdlParser* dialogParser = nullptr;
+static const String* logicCode = nullptr;
+void dialogParseError(const char* error) {
+	dialogParser->error("Syntax error in condition: \"", *logicCode, "\"");
+}
+
+void parseLogic (const String& mess, DNode& n)
 {
+	logicCode = &mess;
 	yyin = fmemopen((char*) mess.c_str(), mess.size(), "r");
 	yyparse();
+	logicCode = nullptr;
 	n.choice = pick;
 	n.cond = parseval;
 }
@@ -158,6 +166,7 @@ Dialog::Dialog(MainState* ms, const Path& filename)
 	lairAssert(in.good());
 	ErrorList el;
 	LdlParser p(&in, filename.utf8String(), &el, LdlParser::CTX_MAP);
+	dialogParser = &p;
 
 	std::vector<DNode*> nodes;
 	std::vector<std::vector<String>> nexts;
@@ -209,8 +218,10 @@ Dialog::Dialog(MainState* ms, const Path& filename)
 		}
 		p.leave();		
 	}
+	p.leave();
 
-	// el.log(dbgLogger);
+	el.log(dbgLogger);
+
 	assert( nodes.size() == nexts.size() );
 	for (int i = 0 ; i < nexts.size() ; i++)
 		for (int j = 0 ; j < nexts[i].size() ; j++)
@@ -240,7 +251,10 @@ void Dialog::beginDialog ()
 	_current = _start;
 	_ms->_gui.showDialog();
 	_ms->_gui.showCharacter();
-	say(_current->lines[0]);
+	if(_current->lines[0].chara.empty())
+		stepDialog();
+	else
+		say(_current->lines[0]);
 }
 
 bool Dialog::stepDialog ()

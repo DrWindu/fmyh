@@ -1,0 +1,20 @@
+root = {
+	lines = [
+		( "", "" )
+	]
+	next = [ cannot_act, act ]
+}
+
+act = {
+	lines = [
+		(player, "It's a rock.")
+	]
+	effects = [ "+actions[1]" ]
+}
+
+cannot_act = {
+	condition = "<actions[5]"
+	lines = [
+		(player, "I already did a lot today. Maybe I should rest ?")
+	]
+}

@@ -1,0 +1,56 @@
+root = {
+	lines = [
+		( "", "" )
+	]
+	next = [ dead, welcome, hub ]
+}
+
+welcome = {
+	conditions = "!talked_to_ant"
+	lines = [
+		(ant, "Hello, I'm ant. I'm an ant !")
+	]
+	effects = [ "talked_to_ant" ]
+	next = [ hub ]
+}
+
+hub = {
+	lines = [
+		(ant, "What do you want ?")
+	]
+	next = [ talk, kill, goodbye ]
+}
+
+talk = {
+	conditions = "@Pick !talked"
+	lines = [
+		(player, "I'd like to talk.")
+		(ant, "Bla bla...")
+	]
+	effects =  [ "talked" ]
+	next = [ hub ]
+}
+
+kill = {
+	conditions = "@Pick"
+	lines = [
+		(player, "I'm going to kill you !")
+		(ant, "Aaaarghh !")
+	]
+	effects = [ "=ant[100]" ]
+}
+
+goodbye = {
+	conditions = "@Pick"
+	lines = [
+		(player, "Goodbye")
+		(ant, "See you.")
+	]
+}
+
+dead = {
+	conditions = "=ant[100]"
+	lines = [
+		(ant, "I'm dead, I cannot talk !")
+	]
+}

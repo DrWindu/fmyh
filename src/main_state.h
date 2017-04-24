@@ -105,6 +105,7 @@ public:
 	void updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, bool disableCmds = false);
 
 	int& getData(const String& name);
+	void loadData(const Path& path);
 	void startDialog(const String& dialogId);
 
 	void orientPlayer(Direction dir, int frame = 0);

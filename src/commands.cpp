@@ -49,7 +49,7 @@ int talkToCommand(MainState* state, EntityRef self, int argc, const char** argv)
 	}
 
 	state->log().info("Talk to ", argv[1], " (", self.name(), ")");
-	state->startDialog("test");
+	state->startDialog(argv[1]);
 
 	return 0;
 }

@@ -1,0 +1,32 @@
+// Resources
+// Everyone consume a unit of water by day
+// Everyone consume a unit of food by day, and has a preference for mead or vegetables.
+water     = 24
+vegetable = 16
+meat      = 0
+wood      = 0
+rock      = 0
+metal     = 0
+
+//
+actions = 0
+
+// Quest lines
+// Use this as an enum. 100 = dead ?
+alien  = 0
+ami    = 0
+ant    = 0
+dragon = 0
+matt   = 0
+queen  = 0
+regis  = 0
+evac   = 0  // This is the main quest
+
+// Reputation
+rep_alien  = 50
+rep_ami    = 50
+rep_ant    = 50
+rep_dragon = 50
+rep_matt   = 50
+rep_queen  = 50
+rep_regis  = 50

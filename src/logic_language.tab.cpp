@@ -69,7 +69,7 @@
 	bool pick;
 	DLogic* parseval;
 
-	void yyerror (char const *s) { fprintf (stderr, "%s\n", s); }
+	void yyerror (char const *s) { dialogParseError(s); }
 	int yylex(void);
 
 #line 76 "logic_language.tab.cpp" /* yacc.c:339  */

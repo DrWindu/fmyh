@@ -1,0 +1,19 @@
+root = {
+	lines = [
+		( "", "" )
+	]
+	next = [ cannot_act, act ]
+}
+
+act = {
+	lines = [
+		(player, "It's a spaceship.")
+	]
+	effects = [ "+actions[1]" ]
+}
+
+cannot_act = {
+	lines = [
+		(player, "I already did a lot today. Maybe I should rest ?")
+	]
+}

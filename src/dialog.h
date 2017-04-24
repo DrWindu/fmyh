@@ -100,6 +100,8 @@ struct DLine {
 	String text;
 };
 
+void dialogParseError(const char* error);
+
 // Nodes
 struct DNode {
 	String id;

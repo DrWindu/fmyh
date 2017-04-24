@@ -2,6 +2,8 @@
 	#include "logic_language.tab.hpp"
 
 	#include <string.h>
+
+	void dialogParseError(const char* error);
 %}
 
 %%
@@ -31,7 +33,7 @@
 
 [ \t\n]        { }
 
-.              { fprintf(stderr, "Yuck !\n"); }
+.              { dialogParseError("Unexpected token"); }
 
 %%
 

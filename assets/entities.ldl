@@ -53,7 +53,7 @@ gui = {
 						text   = """Maiores repellendus sapiente pariatur quis doloremque. Modi beatae fuga quasi id et debitis animi voluptatem. Est quo itaque et pariatur recusandae est. Quia eum quis blanditiis unde qui ut praesentium. Facilis at sit quo totam.
 Dicta recusandae ducimus officia qui. Omnis perferendis placeat recusandae nemo. Fugiat blanditiis aspernatur maxime beatae provident totam.
 Ea labore aut tempora id doloribus harum. Magni dolor magnam voluptatum numquam iste. Excepturi fugit veritatis occaecati ex molestiae id."""
-						color  = Vector(0, 0, 0, 1)
+						color  = Vector(1, 1, 1, 1)
 						anchor = Vector(0, 1)
 						blend  = alpha
 						texture_flags = "bilinear_no_mipmap | clamp"

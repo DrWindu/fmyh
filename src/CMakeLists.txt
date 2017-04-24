@@ -46,12 +46,11 @@ set(SOURCES
 
 if(APPLE)
 	list(APPEND SOURCES fmemopen.cpp)
-	link_directories("/opt/local/lib")
 endif()
 
 add_executable(${CMAKE_PROJECT_NAME} ${SOURCES})
 
 target_link_libraries(${CMAKE_PROJECT_NAME}
 	lair
-	fl
+	winpthread
 )

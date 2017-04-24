@@ -46,11 +46,29 @@ void dialogParseError(const char* error) {
 	dialogParser->error("Syntax error in condition: \"", *logicCode, "\"");
 }
 
+extern "C" {
+	int yywrap() {
+		return 1;
+	}
+}
+
 void parseLogic (const String& mess, DNode& n)
 {
 	logicCode = &mess;
+#if defined(_WIN32) && !defined(_MSC_VER)
+	//yyin = tmpfile();
+	yyin = fopen("tmp", "w");
+	
+	fputs(mess.c_str(), yyin);
+	
+	yyin = freopen("tmp", "r", yyin);
+	
+	yyparse();
+	fclose(yyin);
+#else
 	yyin = fmemopen((char*) mess.c_str(), mess.size(), "r");
 	yyparse();
+#endif
 	logicCode = nullptr;
 	n.choice = pick;
 	n.cond = parseval;

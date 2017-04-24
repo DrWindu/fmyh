@@ -144,6 +144,7 @@ public:
 	unsigned    _fpsCount;
 
 	State       _state;
+	std::unordered_map<String,int> _gameData;
 
 	Input*      _quitInput;
 	Input*      _okInput;

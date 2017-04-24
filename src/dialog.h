@@ -112,7 +112,7 @@ struct DNode {
 
 class Dialog {
 public:
-	Dialog(MainState* ms, const Path& filename);
+	Dialog(MainState*, const Path&);
 	virtual ~Dialog();
 
 	void beginDialog();
@@ -123,11 +123,14 @@ public:
 protected:
 	void say(DLine l);
 	void offerChoice();
+	bool check(DLogic*, std::unordered_map<String, int>);
 
 	MainState* _ms;
+	DNode* _wombatFallback;
 
 	DNode* _start;
 	DNode* _current;
+	int _line;
 
 	std::vector<String> _choices;
 	int _choice;

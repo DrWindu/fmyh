@@ -132,7 +132,7 @@ protected:
 	DNode* _current;
 	int _line;
 
-	std::vector<String> _choices;
+	std::vector<std::pair<String, DNode*>> _choices;
 	int _choice;
 };
 

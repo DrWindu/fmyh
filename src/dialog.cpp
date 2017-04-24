@@ -177,7 +177,8 @@ Dialog::Dialog(MainState* ms, const Path& filename)
 			continue;
 		}
 		
-		DNode* n = new DNode;
+		DNode* n = new DNode();
+		n->cond = NULL;
 		nodes.push_back(n);
 		nexts.push_back(std::vector<String>());
 
@@ -281,7 +282,7 @@ bool Dialog::stepDialog ()
 	else
 	{
 		// Yes: Pick currently selected choice.
-		_current = _current->next[_choice];
+		_current = _choices[_choice].second;
 		_choices.clear();
 		_choice = -1;
 	}
@@ -292,7 +293,7 @@ bool Dialog::stepDialog ()
 		// Yes: Build and display list of available choices (the rest are hidden).
 		for (int i = 0 ; i < _current->next.size() ; i++)
 			if (check(_current->next[i]->cond, _ms->_gameData))
-				_choices.push_back(_current->next[i]->lines[0].text);
+				_choices.push_back(std::pair<String, DNode*>(_current->next[i]->lines[0].text, _current->next[i]));
 		_choice = 0;
 		offerChoice();
 	}
@@ -311,7 +312,7 @@ void Dialog::offerChoice ()
 			out += "> ";
 		else
 			out += "  ";
-		out += _choices[i];
+		out += _choices[i].first;
 		out += "\n";
 	}
 	_ms->_gui.setText(out);

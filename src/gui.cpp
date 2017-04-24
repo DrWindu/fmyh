@@ -120,12 +120,4 @@ void Gui::updateAnimation(double elapsedSec) {
 
 	_dialogAnim.update(elapsedSec);
 	_characterAnim.update(elapsedSec);
-
-	_dialog.updateWorldTransform();
-	_text.updateWorldTransform();
-	_character.updateWorldTransform();
-
-	_dialog.setPrevWorldTransform();
-	_text.setPrevWorldTransform();
-	_character.setPrevWorldTransform();
 }

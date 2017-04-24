@@ -39,8 +39,8 @@
 using namespace lair;
 
 
-#define TILE_SET_WIDTH 8
-#define TILE_SET_HEIGHT 8
+#define TILE_SET_WIDTH 16
+#define TILE_SET_HEIGHT 16
 #define TILE_SIZE 48
 
 class MainState;

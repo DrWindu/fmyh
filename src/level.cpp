@@ -30,7 +30,7 @@ bool isSolid(TileMap::TileIndex tile) {
 	tile -= 1;
 	unsigned x = tile % TILE_SET_WIDTH;
 	unsigned y = tile / TILE_SET_WIDTH;
-	return y < 3 && x < 5 && (y != 2 || x < 3);
+	return (y > 2 && y < 9);
 }
 
 

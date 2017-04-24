@@ -45,14 +45,14 @@ gui = {
 			}
 			children = {
 				dialog_text = {
-					transform = [ translate(40, 400, .05), scale(2) ]
+					transform = [ translate(50, 411, .05), scale(2) ]
 					text = {
 						font   = "droid_sans_24.json"
-						size   = Vector(685, 400)
-						text   = "Hello"
-//						text   = """Maiores repellendus sapiente pariatur quis doloremque. Modi beatae fuga quasi id et debitis animi voluptatem. Est quo itaque et pariatur recusandae est. Quia eum quis blanditiis unde qui ut praesentium. Facilis at sit quo totam.
-//Dicta recusandae ducimus officia qui. Omnis perferendis placeat recusandae nemo. Fugiat blanditiis aspernatur maxime beatae provident totam.
-//Ea labore aut tempora id doloribus harum. Magni dolor magnam voluptatum numquam iste. Excepturi fugit veritatis occaecati ex molestiae id."""
+						size   = Vector(662, 411)
+//						text   = "Hello"
+						text   = """Maiores repellendus sapiente pariatur quis doloremque. Modi beatae fuga quasi id et debitis animi voluptatem. Est quo itaque et pariatur recusandae est. Quia eum quis blanditiis unde qui ut praesentium. Facilis at sit quo totam.
+Dicta recusandae ducimus officia qui. Omnis perferendis placeat recusandae nemo. Fugiat blanditiis aspernatur maxime beatae provident totam.
+Ea labore aut tempora id doloribus harum. Magni dolor magnam voluptatum numquam iste. Excepturi fugit veritatis occaecati ex molestiae id."""
 						color  = Vector(0, 0, 0, 1)
 						anchor = Vector(0, 1)
 						blend  = alpha
@@ -65,8 +65,25 @@ gui = {
 		gui_character = {
 			transform = translate(0, 0, 0)
 			sprite = {
-				texture       = "character.png"
-				texture_flags = "bilinear"
+				texture       = "character_background.png"
+				texture_flags = "bilinear_no_mipmap | clamp"
+			}
+			children = {
+				face = {
+					transform = translate(235, 15, 0.01)
+					sprite = {
+						texture       = "face_player.png"
+						texture_flags = "bilinear_no_mipmap | clamp"
+						anchor        = Vector(.5, 0)
+					}
+				}
+				char_border = {
+					transform = translate(0, 0, 0.02)
+					sprite = {
+						texture       = "character_border.png"
+						texture_flags = "bilinear_no_mipmap | clamp"
+					}
+				}
 			}
 		}
 	}

@@ -142,7 +142,7 @@ void MainState::initialize() {
 	_scene    = getEntity("scene");
 	_guiLayer = getEntity("gui");
 
-	_campLevel = std::make_shared<Level>(this, "camp.json");
+	_campLevel = std::make_shared<Level>(this, "island.json");
 	_campLevel->preload();
 
 	loader()->load<SoundLoader>("sound.ogg");
@@ -333,6 +333,20 @@ void MainState::updateTick() {
 			break;
 		}
 
+		int index = (_debugCounter / 4) % 8;
+		EntityRef face = getEntity("face");
+		SpriteComponent* sprite = _sprites.get(face);
+		switch(index) {
+		case 0: sprite->setTexture("face_alien.png"); break;
+		case 1: sprite->setTexture("face_ami.png"); break;
+		case 2: sprite->setTexture("face_ant.png"); break;
+		case 3: sprite->setTexture("face_dragon.png"); break;
+		case 4: sprite->setTexture("face_matt.png"); break;
+		case 5: sprite->setTexture("face_player.png"); break;
+		case 6: sprite->setTexture("face_queen.png"); break;
+		case 7: sprite->setTexture("face_regis.png"); break;
+		}
+
 		++_debugCounter;
 	}
 }
@@ -352,10 +366,12 @@ void MainState::updateFrame() {
 	guiTrans.matrix()(0, 0) = (float(window()->width()) / 1920.0f);
 	guiTrans.matrix()(1, 1) = guiTrans.matrix()(0, 0);
 	_guiLayer.transform() = guiTrans;
-	_guiLayer.updateWorldTransform();
-	_guiLayer.setPrevWorldTransform();
+	_guiLayer.setPrevWorldTransformRec();
 
 	_gui.updateAnimation(elapsedSec);
+
+	// Wait for loader if required... This is BAD !
+	loader()->waitAll();
 
 	// Rendering
 	Context* glc = renderer()->context();

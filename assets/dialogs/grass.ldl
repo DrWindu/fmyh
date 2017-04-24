@@ -7,13 +7,14 @@ root = {
 
 act = {
 	lines = [
-		(player, "It's a grass.")
+		(player, "That's not perfect, but I guess we can eat that.\n\n[ You harvest a bunch of vegetables. ]")
 	]
-	effects = [ "+actions[1]" ]
+	effects = [ "-actions[1]", "+vegetable[1]" ]
 }
 
 cannot_act = {
+	conditions = "<actions[1]"
 	lines = [
-		(player, "I already did a lot today. Maybe I should rest ?")
+		(player, "I already did a lot today. Maybe I should rest ?\n\n[ Go back to the fire to rest... ]")
 	]
 }

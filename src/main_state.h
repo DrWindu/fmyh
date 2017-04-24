@@ -24,6 +24,7 @@
 
 
 #include <memory>
+#include <deque>
 
 #include <lair/core/signal.h>
 
@@ -72,10 +73,19 @@ typedef std::unordered_map<String, DialogSP> DialogMap;
 typedef std::unordered_map<Path, int, boost::hash<Path>> SoundMap;
 
 enum State {
+	STATE_NONE,
 	STATE_PLAYING,
 	STATE_DIALOG,
+	STATE_FADE_IN,
+	STATE_FADE_OUT,
 };
+typedef std::vector<State> StateStack;
 
+struct CommandExpr {
+	String    command;
+	EntityRef self;
+};
+typedef std::deque<CommandExpr> CommandList;
 
 class MainState : public GameState {
 public:
@@ -100,13 +110,23 @@ public:
 	void resizeEvent();
 
 	void exec(const std::string& cmd, EntityRef self = EntityRef());
+	void exec(const CommandList& commands);
+	void execNext();
+	int execSingle(const std::string& cmd, EntityRef self = EntityRef());
 	int exec(int argc, const char** argv, EntityRef self = EntityRef());
 
 	void updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, bool disableCmds = false);
 
+	State state() const;
+	void setState(State state);
+	void pushState(State state);
+	void popState();
+
 	int& getData(const String& name);
 	void loadData(const Path& path);
 	void startDialog(const String& dialogId);
+
+	void nextTurn();
 
 	void orientPlayer(Direction dir, int frame = 0);
 
@@ -136,6 +156,7 @@ public:
 
 	Settings    _settings;
 	CommandMap  _commands;
+	CommandList _commandList;
 	SoundMap    _soundMap;
 
 	OrthographicCamera _camera;
@@ -147,7 +168,7 @@ public:
 	int64       _fpsTime;
 	unsigned    _fpsCount;
 
-	State       _state;
+	StateStack  _stateStack;
 	std::unordered_map<String,int> _gameData;
 
 	Input*      _quitInput;
@@ -160,6 +181,7 @@ public:
 	Gui         _gui;
 	DialogMap   _dialogs;
 	DialogSP    _currentDialog;
+	float       _fadeAnim;
 
 	LevelSP     _campLevel;
 
@@ -168,6 +190,7 @@ public:
 	EntityRef   _models;
 	EntityRef   _scene;
 	EntityRef   _guiLayer;
+	EntityRef   _overlay;
 
 	EntityRef   _player;
 	Direction   _playerDir;

@@ -37,6 +37,7 @@ int echoCommand(MainState* state, EntityRef self, int argc, const char** argv) {
 	for(int i = 1; i < argc; ++i)
 		out << " " << argv[i];
 	dbgLogger.info(out.str());
+	state->execNext();
 
 	return 0;
 }
@@ -44,7 +45,7 @@ int echoCommand(MainState* state, EntityRef self, int argc, const char** argv) {
 
 int talkToCommand(MainState* state, EntityRef self, int argc, const char** argv) {
 	if(argc < 2) {
-		dbgLogger.warning("messageCommand: wrong number of argument.");
+		dbgLogger.warning(argv[0], ": wrong number of argument.");
 		return -2;
 	}
 
@@ -55,62 +56,58 @@ int talkToCommand(MainState* state, EntityRef self, int argc, const char** argv)
 }
 
 
-int messageCommand(MainState* state, EntityRef self, int argc, const char** argv) {
+int nextTurnCommand(MainState* state, EntityRef self, int argc, const char** argv) {
 	if(argc < 2) {
-		dbgLogger.warning("messageCommand: wrong number of argument.");
+		dbgLogger.warning(argv[0], ": wrong number of argument.");
 		return -2;
 	}
 
-//	state->popupMessage(argv[1]);
-
-//	if(argc > 2)
-//		state->setPostCommand(argc - 2, argv + 2);
-//	else
-//		state->setPostCommand("continue");
+	state->nextTurn();
+	state->execNext();
 
 	return 0;
 }
 
 
-int nextLevelCommand(MainState* state, EntityRef self, int argc, const char** argv) {
-	if(argc != 2 && argc != 3) {
-		dbgLogger.warning("nextLevelCommand: wrong number of argument.");
-		return -2;
-	}
+//int nextLevelCommand(MainState* state, EntityRef self, int argc, const char** argv) {
+//	if(argc != 2 && argc != 3) {
+//		dbgLogger.warning("nextLevelCommand: wrong number of argument.");
+//		return -2;
+//	}
 
-//	if(argc == 2)
-//		state->startLevel(argv[1]);
-//	else
-//		state->startLevel(argv[1], argv[2]);
+////	if(argc == 2)
+////		state->startLevel(argv[1]);
+////	else
+////		state->startLevel(argv[1], argv[2]);
 
-	return 0;
-}
+//	return 0;
+//}
 
 
-int teleportCommand(MainState* state, EntityRef self, int argc, const char** argv) {
-	if(argc != 2) {
-		dbgLogger.warning("teleportCommand: wrong number of argument.");
-		return -2;
-	}
+//int teleportCommand(MainState* state, EntityRef self, int argc, const char** argv) {
+//	if(argc != 2) {
+//		dbgLogger.warning("teleportCommand: wrong number of argument.");
+//		return -2;
+//	}
 
-	EntityRef target = state->_level->entity(argv[1]);
-	if(!target.isValid()) {
-		dbgLogger.warning("teleportCommand: target \"", target.name(), "\" not found.");
-		return -2;
-	}
+//	EntityRef target = state->_level->entity(argv[1]);
+//	if(!target.isValid()) {
+//		dbgLogger.warning("teleportCommand: target \"", target.name(), "\" not found.");
+//		return -2;
+//	}
 
-	float depth = state->_player.transform()(2, 3);
-	state->_player.place((Vector3() << target.translation2(), depth).finished());
-	state->playSound("tp.wav");
+//	float depth = state->_player.transform()(2, 3);
+//	state->_player.place((Vector3() << target.translation2(), depth).finished());
+//	state->playSound("tp.wav");
 
-	TriggerComponent* tc = state->_triggers.get(target);
-	if(tc) {
-		tc->inside = true;
-		tc->prevInside = true;
-	}
+//	TriggerComponent* tc = state->_triggers.get(target);
+//	if(tc) {
+//		tc->inside = true;
+//		tc->prevInside = true;
+//	}
 
-	return 0;
-}
+//	return 0;
+//}
 
 
 int playSoundCommand(MainState* state, EntityRef self, int argc, const char** argv) {
@@ -120,21 +117,22 @@ int playSoundCommand(MainState* state, EntityRef self, int argc, const char** ar
 	}
 
 	state->playSound(argv[1]);
+	state->execNext();
 
 	return 0;
 }
 
 
-int continueCommand(MainState* state, EntityRef self, int argc, const char** argv) {
-	if(argc != 1) {
-		dbgLogger.warning("playSoundCommand: wrong number of argument.");
-		return -2;
-	}
+//int continueCommand(MainState* state, EntityRef self, int argc, const char** argv) {
+//	if(argc != 1) {
+//		dbgLogger.warning("playSoundCommand: wrong number of argument.");
+//		return -2;
+//	}
 
-//	state->setState(STATE_PLAY);
+////	state->setState(STATE_PLAY);
 
-	return 0;
-}
+//	return 0;
+//}
 
 
 int fadeInCommand(MainState* state, EntityRef self, int argc, const char** argv) {
@@ -143,11 +141,7 @@ int fadeInCommand(MainState* state, EntityRef self, int argc, const char** argv)
 		return -2;
 	}
 
-//	state->setState(STATE_FADE_IN);
-
-//	if(argc > 1) {
-//		state->setPostCommand(argc - 1, argv + 1);
-//	}
+	state->pushState(STATE_FADE_IN);
 
 	return 0;
 }
@@ -159,11 +153,7 @@ int fadeOutCommand(MainState* state, EntityRef self, int argc, const char** argv
 		return -2;
 	}
 
-//	state->setState(STATE_FADE_OUT);
-
-//	if(argc > 1) {
-//		state->setPostCommand(argc - 1, argv + 1);
-//	}
+	state->pushState(STATE_FADE_OUT);
 
 	return 0;
 }
@@ -181,6 +171,7 @@ int disableCommand(MainState* state, EntityRef self, int argc, const char** argv
 	}
 
 	self.setEnabled(false);
+	state->execNext();
 
 	return 0;
 }
@@ -195,6 +186,7 @@ int creditsCommand(MainState* state, EntityRef self, int argc, const char** argv
 	state->game()->splashState()->setup(nullptr, "credits.png");
 	state->game()->setNextState(state->game()->splashState());
 	state->quit();
+	state->execNext();
 
 	return 0;
 }

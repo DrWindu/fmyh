@@ -29,6 +29,7 @@ Settings::Settings()
     , characterVisiblePos  (0, 0)
     , characterHiddenPos   (-1000, 0)
     , playerAnimSpeed      (0.3)
+    , fadeDuration         (0.5)
 {
 }
 
@@ -42,6 +43,7 @@ const PropertyList& Settings::properties() const {
 		properties.addProperty("character_visible_pos",   &Settings::characterVisiblePos);
 		properties.addProperty("character_hidden_pos",    &Settings::characterHiddenPos);
 		properties.addProperty("player_anim_speed",       &Settings::playerAnimSpeed);
+		properties.addProperty("fade_duration",           &Settings::fadeDuration);
 	}
 	return properties;
 }

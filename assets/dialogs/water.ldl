@@ -7,14 +7,14 @@ root = {
 
 act = {
 	lines = [
-		(player, "It's a water.")
+		(player, "Let's take some water.\n\n[ You grab some water. ]")
 	]
-	effects = [ "+actions[1]" ]
+	effects = [ "-actions[1]", "+water[1]" ]
 }
 
 cannot_act = {
-	condition = ">actions[5]"
+	conditions = "<actions[1]"
 	lines = [
-		(player, "I already did a lot today. Maybe I should rest ?")
+		(player, "I already did a lot today. Maybe I should rest ?\n\n[ Go back to the fire to rest... ]")
 	]
 }

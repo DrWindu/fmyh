@@ -9,7 +9,7 @@ rock      = 0
 metal     = 0
 
 //
-actions = 0
+actions = 4
 
 // Quest lines
 // Use this as an enum. 100 = dead ?

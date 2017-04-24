@@ -259,9 +259,13 @@ Dialog::~Dialog () { }
 
 void Dialog::say (DLine l)
 {
-	//TODO: Draw facez.
-	_ms->_gui.setText(l.text);
-	_ms->_gui.setCharacterSprite("face_" + l.chara + ".png");
+	if(l.chara == "exec") {
+		_ms->exec(l.text);
+	}
+	else {
+		_ms->_gui.setText(l.text);
+		_ms->_gui.setCharacterSprite("face_" + l.chara + ".png");
+	}
 }
 
 void Dialog::beginDialog ()
@@ -375,20 +379,28 @@ bool Dialog::check (const DLogic* cond)
 	switch (cond->t)
 	{
 		case L_NOT:
+			_ms->log().info("Test NOT");
 			return !check(cond->left);
 		case L_AND:
+			_ms->log().info("Test AND");
 			return check(cond->left) && check(cond->right);
 		case L_OR:
+			_ms->log().info("Test OR");
 			return check(cond->left) || check(cond->right);
 		case C_GREATER:
+			_ms->log().info("Test ", cond->name, " (", _ms->getData(cond->name), ") > ", cond->val);
 			return _ms->getData(cond->name) > cond->val;
 		case C_LESSER:
+		_ms->log().info("Test ", cond->name, " (", _ms->getData(cond->name), ") < ", cond->val);
 			return _ms->getData(cond->name) < cond->val;
 		case C_EQUAL:
+			_ms->log().info("Test ", cond->name, " (", _ms->getData(cond->name), ") = ", cond->val);
 			return _ms->getData(cond->name) == cond->val;
 		case YFLAG:
+			_ms->log().info("Test ", cond->name, " (", _ms->getData(cond->name), ") = true");
 			return _ms->getData(cond->name);
 		case NFLAG:
+			_ms->log().info("Test ", cond->name, " (", _ms->getData(cond->name), ") = false");
 			return !_ms->getData(cond->name);
 		default:
 			assert (false);

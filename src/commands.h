@@ -40,11 +40,8 @@ class MainState;
 int echoCommand(MainState* state, EntityRef self, int argc, const char** argv);
 
 int talkToCommand(MainState* state, EntityRef self, int argc, const char** argv);
-int messageCommand(MainState* state, EntityRef self, int argc, const char** argv);
 
-int nextLevelCommand(MainState* state, EntityRef self, int argc, const char** argv);
-
-int teleportCommand(MainState* state, EntityRef self, int argc, const char** argv);
+int nextTurnCommand(MainState* state, EntityRef self, int argc, const char** argv);
 
 int playSoundCommand(MainState* state, EntityRef self, int argc, const char** argv);
 

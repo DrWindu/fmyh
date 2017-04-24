@@ -6,8 +6,9 @@ __models__ = {
 			sprite = {
 				texture       = "char_player.png"
 				tile_grid     = Vector(3, 4)
-				tile_index    = 0
+				tile_index    = 9
 				anchor        = Vector(0.5, 0.3)
+				texture_flags = "bilinear_no_mipmap | clamp"
 			}
 			collision = {
 				shape       = ABox{ min = Vector(-20, -20), size = Vector(40, 40) }
@@ -45,10 +46,10 @@ gui = {
 			}
 			children = {
 				dialog_text = {
-					transform = [ translate(50, 411, .05), scale(2) ]
+					transform = [ translate(50, 411, .01), scale(2) ]
 					text = {
 						font   = "droid_sans_24.json"
-						size   = Vector(662, 411)
+						size   = Vector(637, 411)
 //						text   = "Hello"
 						text   = """Maiores repellendus sapiente pariatur quis doloremque. Modi beatae fuga quasi id et debitis animi voluptatem. Est quo itaque et pariatur recusandae est. Quia eum quis blanditiis unde qui ut praesentium. Facilis at sit quo totam.
 Dicta recusandae ducimus officia qui. Omnis perferendis placeat recusandae nemo. Fugiat blanditiis aspernatur maxime beatae provident totam.
@@ -84,6 +85,18 @@ Ea labore aut tempora id doloribus harum. Magni dolor magnam voluptatum numquam 
 						texture_flags = "bilinear_no_mipmap | clamp"
 					}
 				}
+			}
+		}
+
+		overlay = {
+			transform = translate(0, 0, 0.099)
+			sprite = {
+				texture       = "tileset.png"
+				tile_grid     = Vector(16, 16)
+				tile_index    = 70
+				texture_flags = "bilinear_no_mipmap | clamp"
+				color         = Vector(0, 0, 0, 0)
+				blend         = alpha
 			}
 		}
 	}

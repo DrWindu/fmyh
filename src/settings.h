@@ -43,6 +43,7 @@ public:
 	Vector2 characterVisiblePos;
 	Vector2 characterHiddenPos;
 	float   playerAnimSpeed;
+	float   fadeDuration;
 };
 
 

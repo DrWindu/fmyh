@@ -61,8 +61,6 @@ MainState::MainState(Game* game)
 
       _camera(),
 
-      _state(STATE_PLAYING),
-
       _initialized(false),
       _running(false),
       _loop(sys()),
@@ -94,11 +92,9 @@ MainState::MainState(Game* game)
 
 	_commands["echo"]        = echoCommand;
 	_commands["talk_to"]     = talkToCommand;
-	_commands["message"]     = messageCommand;
-	_commands["next_level"]  = nextLevelCommand;
-	_commands["teleport"]    = teleportCommand;
+	_commands["next_turn"]   = nextTurnCommand;
 	_commands["play_sound"]  = playSoundCommand;
-	_commands["continue"]    = continueCommand;
+//	_commands["continue"]    = continueCommand;
 	_commands["fade_in"]     = fadeInCommand;
 	_commands["fade_out"]    = fadeOutCommand;
 	_commands["disable"]     = disableCommand;
@@ -160,6 +156,7 @@ void MainState::initialize() {
 	_models   = getEntity("__models__");
 	_scene    = getEntity("scene");
 	_guiLayer = getEntity("gui");
+	_overlay  = getEntity("overlay");
 
 	_campLevel = std::make_shared<Level>(this, "island.json");
 	_campLevel->preload();
@@ -239,6 +236,10 @@ void MainState::startGame() {
 
 	_playerDir  = UP;
 	_playerAnim = 0;
+
+	_stateStack.clear();
+	pushState(STATE_PLAYING);
+	pushState(STATE_FADE_IN);
 }
 
 
@@ -251,7 +252,7 @@ void MainState::updateTick() {
 		quit();
 	}
 
-	if(_state == STATE_PLAYING) {
+	if(state() == STATE_PLAYING) {
 		// Player movement
 		Vector2 offset(0, 0);
 		if(_upInput->isPressed()) {
@@ -341,7 +342,7 @@ void MainState::updateTick() {
 //	}
 		_level->updateDepth(_player);
 	}
-	else if(_state == STATE_DIALOG) {
+	else if(state() == STATE_DIALOG) {
 		// Dialog
 		if(_currentDialog && _okInput->justPressed())
 		{
@@ -354,7 +355,23 @@ void MainState::updateTick() {
 			_currentDialog->selectDown();
 
 		if(!_currentDialog) {
-			_state = STATE_PLAYING;
+			popState();
+		}
+	}
+	else if(state() == STATE_FADE_IN) {
+		_fadeAnim -= double(_loop.tickDuration()) / double(ONE_SEC) / _settings.fadeDuration;
+		log().warning(_fadeAnim);
+		if(_fadeAnim <= 0) {
+			_fadeAnim = 0;
+			popState();
+		}
+	}
+	else if(state() == STATE_FADE_OUT) {
+		_fadeAnim += double(_loop.tickDuration()) / double(ONE_SEC) / _settings.fadeDuration;
+		log().warning(_fadeAnim);
+		if(_fadeAnim >= 1) {
+			_fadeAnim = 1;
+			popState();
 		}
 	}
 }
@@ -369,14 +386,24 @@ void MainState::updateFrame() {
 	             (Vector3() << playerPos + viewSize / 2, 1).finished());
 	_camera.setViewBox(viewBox);
 
+	SpriteComponent* overlaySprite = _sprites.get(_overlay);
+	if(overlaySprite) {
+//		_overlay.setEnabled(_fadeAnim != 0);
+		overlaySprite->setColor(Vector4(0, 0, 0, _fadeAnim));
+
+		_overlay.transform()(0, 0) = window()->width();
+		_overlay.transform()(1, 1) = window()->height();
+	}
+
 	Transform guiTrans = _guiLayer.transform();
 	guiTrans.matrix().col(3).head<2>() = viewBox.min().head<2>();
 	guiTrans.matrix()(0, 0) = (float(window()->width()) / 1920.0f);
 	guiTrans.matrix()(1, 1) = guiTrans.matrix()(0, 0);
-	_guiLayer.transform() = guiTrans;
-	_guiLayer.setPrevWorldTransformRec();
 
 	_gui.updateAnimation(elapsedSec);
+
+	_guiLayer.transform() = guiTrans;
+	_guiLayer.setPrevWorldTransformRec();
 
 	// Wait for loader if required... This is BAD !
 	loader()->waitAll();
@@ -414,18 +441,50 @@ void MainState::updateFrame() {
 }
 
 
-void MainState::exec(const std::string& cmd, EntityRef self) {
+void MainState::exec(const std::string& cmds, EntityRef self) {
+	CommandList commands;
+	int first = 0;
+	for(int ci = 0; ci <= cmds.size(); ++ci) {
+		if(ci == cmds.size() || cmds[ci] == '\n' || cmds[ci] == ';') {
+			commands.emplace_back(CommandExpr{ String(cmds.begin() + first, cmds.begin() + ci), self });
+			first = ci + 1;
+		}
+	}
+	exec(commands);
+}
+
+
+void MainState::exec(const CommandList& commands) {
+	bool execNow = _commandList.empty();
+	_commandList.insert(_commandList.begin(), commands.begin(), commands.end());
+	if(execNow)
+		execNext();
+}
+
+
+void MainState::execNext() {
+	while(!_commandList.empty()) {
+		CommandExpr cmd = _commandList.front();
+		_commandList.pop_front();
+		if(execSingle(cmd.command, cmd.self) == 0)
+			return;
+	}
+}
+
+
+int MainState::execSingle(const std::string& cmd, EntityRef self) {
 #define MAX_CMD_ARGS 32
 
 	std::string tokens = cmd;
 	unsigned    size   = tokens.size();
+	int ret = 0;
 	for(int ci = 0; ci < size; ) {
 		int   argc = 0;
 		const char* argv[MAX_CMD_ARGS];
 		while(ci < size) {
 			bool endLine = false;
 			while(ci < size && std::isspace(tokens[ci])) {
-				endLine = tokens[ci] == '\n';
+				endLine = (tokens[ci] == '\n') || (tokens[ci] == ';');
 				tokens[ci] = '\0';
 				++ci;
 			}
@@ -441,15 +500,23 @@ void MainState::exec(const std::string& cmd, EntityRef self) {
 		}
 
 		if(argc) {
-			exec(argc, argv, self);
+			ret = exec(argc, argv, self);
 		}
 	}
+
+	return ret;
 }
 
 
 int MainState::exec(int argc, const char** argv, EntityRef self) {
 	lairAssert(argc > 0);
-	echoCommand(this, self, argc, argv);
+
+	std::ostringstream out;
+	out << argv[0];
+	for(int i = 1; i < argc; ++i)
+		out << " " << argv[i];
+	dbgLogger.info(out.str());
+
 	auto cmd = _commands.find(argv[0]);
 	if(cmd == _commands.end()) {
 		dbgLogger.warning("Unknown command \"", argv[0], "\"");
@@ -499,6 +566,41 @@ void MainState::updateTriggers(HitEventQueue& hitQueue, EntityRef useEntity, boo
 			}
 		}
 	}
+}
+
+
+State MainState::state() const {
+	return _stateStack.back();
+}
+
+
+void MainState::setState(State state) {
+	if(state == _stateStack.back())
+		return;
+
+	log().info("Set state: ", state);
+
+	_stateStack.back() = state;
+	if(state == STATE_FADE_IN) {
+		_fadeAnim = 1;
+	}
+	else if(state == STATE_FADE_OUT) {
+		_fadeAnim = 0;
+	}
+}
+
+
+void MainState::pushState(State state) {
+	log().info("Push state: ", state);
+	_stateStack.push_back(STATE_NONE);
+	setState(state);
+}
+
+
+void MainState::popState() {
+	_stateStack.pop_back();
+	log().info("Pop state: ", state());
+	execNext();
 }
 
 
@@ -571,7 +673,8 @@ void MainState::loadData(const Path& path) {
 
 
 void MainState::startDialog(const String& dialogId) {
-	_state = STATE_DIALOG;
+	lairAssert(!_currentDialog);
+	pushState(STATE_DIALOG);
 
 	auto dialogIt = _dialogs.find(dialogId);
 	if(dialogIt == _dialogs.end()) {
@@ -586,6 +689,13 @@ void MainState::startDialog(const String& dialogId) {
 		_currentDialog->beginDialog();
 	else
 		log().error("Missing dialog \"", dialogId, "\"");
+}
+
+
+void MainState::nextTurn() {
+	// Consume food & water
+
+	execNext();
 }
 
 

@@ -2,18 +2,51 @@ root = {
 	lines = [
 		( "", "" )
 	]
-	next = [ cannot_act, act ]
+	next = [ first, need_metal, need_screws, need_magic, need_food, take_off ]
 }
 
-act = {
+first = {
+	conditions = "!spaceship_visited"
 	lines = [
-		(player, "It's a spaceship.")
+		(player, "It's a spaceship. It really need some work.")
 	]
-	effects = [ "+actions[1]" ]
+	effects = [ "spaceship_visited" ]
+	next = [ need_metal, need_screws, need_magic, need_food, take_off ]
 }
 
-cannot_act = {
+need_metal = {
+	conditions = "<metal[10]"
 	lines = [
-		(player, "I already did a lot today. Maybe I should rest ?")
+		(player, "I will need some spare metal to fix it.")
 	]
 }
+
+need_screws = {
+	conditions = "!screws"
+	lines = [
+		(player, "I need some screws. Where can I find some on this little rock ?")
+	]
+}
+
+need_magic = {
+	conditions = "!spell"
+	lines = [
+		(player, "Damn. It's still missing some kind of magic...")
+	]
+}
+
+need_food = {
+	conditions = "<vegetable[10] OR <meat[10]"
+	lines = [
+		(player, "Looks like it's good to go. I should gather some food first though. Both meat and vegetables.")
+	]
+}
+
+take_off = {
+	lines = [
+		(player, "So here we go...")
+		(player, "So here we go...\n\n    FREEEEDOOOOM !!!!!")
+		(exec, "fade_out; credits")
+	]
+}
+

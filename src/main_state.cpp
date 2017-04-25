@@ -360,7 +360,6 @@ void MainState::updateTick() {
 	}
 	else if(state() == STATE_FADE_IN) {
 		_fadeAnim -= double(_loop.tickDuration()) / double(ONE_SEC) / _settings.fadeDuration;
-		log().warning(_fadeAnim);
 		if(_fadeAnim <= 0) {
 			_fadeAnim = 0;
 			popState();
@@ -368,7 +367,6 @@ void MainState::updateTick() {
 	}
 	else if(state() == STATE_FADE_OUT) {
 		_fadeAnim += double(_loop.tickDuration()) / double(ONE_SEC) / _settings.fadeDuration;
-		log().warning(_fadeAnim);
 		if(_fadeAnim >= 1) {
 			_fadeAnim = 1;
 			popState();
@@ -694,6 +692,10 @@ void MainState::startDialog(const String& dialogId) {
 
 void MainState::nextTurn() {
 	// Consume food & water
+	bool mattOut = !getData("spell");
+	getEntity("matt").setEnabled(!mattOut);
+	getEntity("matt2").setEnabled(mattOut);
+	getData("matt_event") = 1;
 
 	execNext();
 }

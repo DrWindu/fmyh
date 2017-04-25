@@ -67,7 +67,7 @@ void Game::initialize() {
 	_loader->setBasePath(_dataPath);
 #endif
 
-	window()->setUtf8Title("Lair - template");
+	window()->setUtf8Title("Fancy meeting you here");
 
 	_splashState.reset(new SplashState(this));
 	_mainState.reset(new MainState(this));

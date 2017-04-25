@@ -8,7 +8,7 @@ root = {
 welcome = {
 	conditions = "!talked_to_regis"
 	lines = [
-		(regis, "Hello, I'm regis. I'm an regis !")
+		(regis, "Hello, I'm regis. We are doomed now...")
 	]
 	effects = [ "talked_to_regis" ]
 	next = [ hub ]
@@ -18,14 +18,14 @@ hub = {
 	lines = [
 		(regis, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [ talk, matt, kill, goodbye ]
 }
 
 talk = {
 	conditions = "@Pick !talked"
 	lines = [
 		(player, "I'd like to talk.")
-		(regis, "Bla bla...")
+		(regis, "I'm not in the mood to talk...")
 	]
 	effects =  [ "talked" ]
 	next = [ hub ]
@@ -36,6 +36,7 @@ kill = {
 	lines = [
 		(player, "I'm going to kill you !")
 		(regis, "Aaaarghh !")
+		(exec, "disable regis")
 	]
 	effects = [ "=regis[100]" ]
 }
@@ -44,7 +45,7 @@ goodbye = {
 	conditions = "@Pick"
 	lines = [
 		(player, "Goodbye")
-		(regis, "See you.")
+		(regis, "Yeah...")
 	]
 }
 
@@ -53,4 +54,14 @@ dead = {
 	lines = [
 		(regis, "I'm dead, I cannot talk !")
 	]
+}
+
+matt = {
+	conditions = "@Pick !pmatt"
+	lines = [
+		(player, "What do you think about Matt ?")
+		(regis, "He asked me if I've seen somebody called Andrew. Then he asked me some of my blood. He seems a bit disturbed...")
+	]
+	effects = ["pmatt"]
+	next = [hub]
 }

@@ -8,7 +8,7 @@ root = {
 welcome = {
 	conditions = "!talked_to_dragon"
 	lines = [
-		(dragon, "Hello, I'm dragon. I'm an dragon !")
+		(dragon, "Hello, I'm The Dark Lord Draegerorn. But I'm retired now, so... Call me only Draegerorn !")
 	]
 	effects = [ "talked_to_dragon" ]
 	next = [ hub ]
@@ -18,14 +18,14 @@ hub = {
 	lines = [
 		(dragon, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [ talk, ami, kill, goodbye ]
 }
 
 talk = {
 	conditions = "@Pick !talked"
 	lines = [
 		(player, "I'd like to talk.")
-		(dragon, "Bla bla...")
+		(dragon, "I need some meat to survive.")
 	]
 	effects =  [ "talked" ]
 	next = [ hub ]
@@ -36,6 +36,7 @@ kill = {
 	lines = [
 		(player, "I'm going to kill you !")
 		(dragon, "Aaaarghh !")
+		(exec, "disable dragon")
 	]
 	effects = [ "=dragon[100]" ]
 }
@@ -53,4 +54,15 @@ dead = {
 	lines = [
 		(dragon, "I'm dead, I cannot talk !")
 	]
+}
+
+
+ami = {
+	conditions = "@Pick !pami"
+	lines = [
+		(player, "What do you think about Ami ?")
+		(dragon, "I don't like people that try to destroy established order.")
+	]
+	effects = ["pami"]
+	next = [hub]
 }

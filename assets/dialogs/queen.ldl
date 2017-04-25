@@ -8,7 +8,7 @@ root = {
 welcome = {
 	conditions = "!talked_to_queen"
 	lines = [
-		(queen, "Hello, I'm queen. I'm an queen !")
+		(queen, "Hello, I'm Judith. I'm a queen !")
 	]
 	effects = [ "talked_to_queen" ]
 	next = [ hub ]
@@ -18,33 +18,31 @@ hub = {
 	lines = [
 		(queen, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [  talk, what, dragon, strange, kill, goodbye ]
 }
 
 talk = {
-	conditions = "@Pick !talked"
+	conditions = "@Pick"
 	lines = [
-		(player, "I'd like to talk.")
-		(queen, "Bla bla...")
+		(player, "Can you speak about yourself ?")
 	]
-	effects =  [ "talked" ]
-	next = [ hub ]
+	next = [ friend33, friend66, friend100 ]
 }
 
 kill = {
 	conditions = "@Pick"
 	lines = [
 		(player, "I'm going to kill you !")
-		(queen, "Aaaarghh !")
+		(queen, "But, I'm already dead !")
 	]
-	effects = [ "=queen[100]" ]
+	effects = [ "=rep_queen[0]" ]
 }
 
 goodbye = {
 	conditions = "@Pick"
 	lines = [
 		(player, "Goodbye")
-		(queen, "See you.")
+		(queen, "See you later, my sweet bunny. hehe...")
 	]
 }
 
@@ -53,4 +51,58 @@ dead = {
 	lines = [
 		(queen, "I'm dead, I cannot talk !")
 	]
+}
+
+what = {
+	lines =[
+		(player, "What should I do ?")
+		(queen, "You should pick some delicious and sweet bunnies !")
+	]
+	next = [ hub]
+}
+
+friend33 = {
+	conditions = "<rep_queen[34]"
+	lines =[
+		(queen, "If I had my axe, I'd shop your head. Lucky you, I only have my teeth...")
+	]
+	next = [hub]
+}
+
+friend66 = {
+	conditions = ">rep_queen[34] AND <rep_queen[67]"
+	lines =[
+		(player, "Can you speak about yourself ?")
+		(queen, "I'm a queen, you should practice your curtsy.")
+	]
+	next = [ hub]
+}
+
+friend100 = {
+	conditions = ">rep_queen[98]"
+	lines = [
+		(player, "Can you speak about yourself ?")
+		(queen, "Someday, a girl arrived. She was blonde and cute, but she just ate some stuff and changed size. I managed to chase the first one, but the second came, and my people and I starved to death. Or... maybe I ate some parts of them. After starving. I have a political value.")
+	]
+	next = [ hub]
+}
+
+strange = {
+	conditions = "@Pick !ami_event"
+	lines = [
+		(player, "Did you spot something strange ?")
+		(queen, "Ami often play with her arm, I think something is wrong with it.")
+		]
+	effects = ["ami_event"]
+	next = [ hub]
+}
+
+dragon = {
+	conditions = "!ddragon"
+	lines = [
+		(player, "What do you think about Draegerorn?")
+		(queen, "You should call him Dark Lord Draegerorn, or at last Lord Draegerorn. It's nothing, but I think it's important not to hurt his feelings.")
+	]
+	effects = [ "ddragon" ]
+	next = [hub]
 }

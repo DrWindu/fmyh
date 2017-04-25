@@ -57,7 +57,7 @@ int talkToCommand(MainState* state, EntityRef self, int argc, const char** argv)
 
 
 int nextTurnCommand(MainState* state, EntityRef self, int argc, const char** argv) {
-	if(argc < 2) {
+	if(argc < 1) {
 		dbgLogger.warning(argv[0], ": wrong number of argument.");
 		return -2;
 	}
@@ -160,17 +160,18 @@ int fadeOutCommand(MainState* state, EntityRef self, int argc, const char** argv
 
 
 int disableCommand(MainState* state, EntityRef self, int argc, const char** argv) {
-	if(argc != 1) {
+	if(argc != 2) {
 		dbgLogger.warning(argv[0], ": wrong number of argument.");
 		return -2;
 	}
 
-	if(!self.isValid()) {
-		dbgLogger.warning(argv[0], ": self is not set.");
+	EntityRef target = state->getEntity(argv[1]);
+	if(!target.isValid()) {
+		dbgLogger.warning(argv[0], ": target not found: ", argv[1]);
 		return -2;
 	}
 
-	self.setEnabled(false);
+	target.setEnabled(false);
 	state->execNext();
 
 	return 0;

@@ -9,7 +9,7 @@ act = {
 	lines = [
 		(player, "Currious. This rabbit just let me grab it... Anyway, we need some meat.\n\n[ You grab a rabbit. ]")
 	]
-	effects = [ "-actions[1]", "+meat[1]" ]
+	effects = [ "-actions[1]", "+meat[1]", "+rep_dragon[5]", "+rep_queen[5]" ]
 }
 
 cannot_act = {

@@ -8,7 +8,7 @@ root = {
 welcome = {
 	conditions = "!talked_to_ami"
 	lines = [
-		(ami, "Hello, I'm ami. I'm an ami !")
+		(ami, "Hello, I'm ami. I'm a robot !")
 	]
 	effects = [ "talked_to_ami" ]
 	next = [ hub ]
@@ -18,17 +18,15 @@ hub = {
 	lines = [
 		(ami, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [ talk, what, alien, ant, strange, kill, event, event_more, goodbye ]
 }
 
 talk = {
 	conditions = "@Pick !talked"
 	lines = [
-		(player, "I'd like to talk.")
-		(ami, "Bla bla...")
+		(player, "Can you speak about yourself ?")
 	]
-	effects =  [ "talked" ]
-	next = [ hub ]
+	next = [ friend33, friend66, friend100 ]
 }
 
 kill = {
@@ -36,6 +34,7 @@ kill = {
 	lines = [
 		(player, "I'm going to kill you !")
 		(ami, "Aaaarghh !")
+		(exec, "disable ami")
 	]
 	effects = [ "=ami[100]" ]
 }
@@ -53,4 +52,78 @@ dead = {
 	lines = [
 		(ami, "I'm dead, I cannot talk !")
 	]
+}
+
+what = {
+	lines =[
+		(player, "What should I do ?")
+		(ami, "We need metal !")
+	]
+	next = [ hub]
+}
+
+friend33 = {
+	conditions = "<rep_ami[34]"
+	lines =[
+		(ami, "I don't want to be rude with you, but come back when you'll be a little more courteous with me.")
+	]
+	next = [hub]
+}
+
+friend66 = {
+	conditions = ">rep_ami[34] AND <rep_ami[67]"
+	lines =[
+		(player, "Can you speak about yourself ?")
+		(ami, "I'm a robot made to fight the system. On this planet, I have no real purpose.")
+	]
+	next = [ hub]
+}
+
+friend100 = {
+	conditions = ">rep_ami[98]"
+	lines = [
+		(player, "Can you speak about yourself ?")
+		(ami, "My three constructors hoped that I'll be able to help them to defeat the system. They built me for the Ludum Dare 32. I was supposed to defeat evil robots. I hate the fact they gave me a pink suit, but I cannot complain to them due to my programs.")
+	]
+	next = [ hub]
+}
+
+ant = {
+	conditions = "@Pick !pant"
+	lines = [
+		(player, "What do you think about Jn'ooz ?")
+		(ami, "I didn't know something like this would exist. It cause me moral problem to imagine she will conquier a whole planet, but we need to leave.")
+	]
+	effects = ["pant"]
+	next = [hub]
+}
+
+alien = {
+	conditions = "!palien"
+	lines = [
+		(player, "What do you think about Akhamemphys ?")
+		(ami, "The color of their skin is quite unique. They have certainly an advanced technology, I'd love to see it.")
+	]
+	effects = ["palien"]
+	next = [hub]
+}
+
+event = {
+	conditions = "ami_event AND !first_ami_event"
+	lines = [
+		(player, "Hey ! I've seen that you have some loose screws on your arm.")
+		(ami, "Yes. I've tried to improve the situation, but it can't be helped.")
+		(player, "We would need those screws to restore the spaceship.")
+		(ami, "I'm not programmed to give some parts of myself. I have to think about it. Come back later.")
+	]
+	effects = ["first_ami_event"]
+}
+
+event_more = {
+	conditions = "first_ami_event AND >rep_ami[60]"
+	lines = [
+		(player, "Did you tought about the situation ?")
+		(ami, "Yes. It's OK, take some screws from y arm.")
+	]
+	effects = ["screws"]
 }

@@ -8,7 +8,7 @@ root = {
 welcome = {
 	conditions = "!talked_to_alien"
 	lines = [
-		(alien, "Hello, I'm alien. I'm an alien !")
+		(alien, "Hello, I'm Akhamemphys. I'm an alien !")
 	]
 	effects = [ "talked_to_alien" ]
 	next = [ hub ]
@@ -18,17 +18,23 @@ hub = {
 	lines = [
 		(alien, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [ talk, what, me, strange, kill, goodbye ]
 }
 
 talk = {
-	conditions = "@Pick !talked"
+	conditions = "@Pick"
 	lines = [
-		(player, "I'd like to talk.")
-		(alien, "Bla bla...")
+		(player, "Can you speak about yourself ?")
 	]
-	effects =  [ "talked" ]
-	next = [ hub ]
+	next = [ friend33, friend66, friend100 ]
+}
+
+what = {
+	lines =[
+		(player, "What should I do ?")
+		(alien, "You should pick wood !")
+	]
+	next = [ hub]
 }
 
 kill = {
@@ -36,6 +42,7 @@ kill = {
 	lines = [
 		(player, "I'm going to kill you !")
 		(alien, "Aaaarghh !")
+		(exec, "disable alien")
 	]
 	effects = [ "=alien[100]" ]
 }
@@ -53,4 +60,51 @@ dead = {
 	lines = [
 		(alien, "I'm dead, I cannot talk !")
 	]
+}
+
+friend33 = {
+	conditions = "<rep_alien[34]"
+	lines =[
+		(alien, "Oh, you want me to explain how I crushed the skull of my savior because he wanted me to explain the secrets of my people ? it would be deligthful.")
+	]
+	next = [hub]
+}
+
+friend66 = {
+	conditions = ">rep_alien[34] AND <rep_alien[67]"
+	lines =[
+		(player, "Can you speak about yourself ?")
+		(alien, "I'm an ancient Alien. I come from Earth. I lived long time before Unique God became the norm. With my family, we hid ourselves in pyramids, like the one humans worshiped.")
+	]
+	next = [ hub]
+}
+
+friend100 = {
+	conditions = ">rep_alien[98]"
+	lines = [
+		(player, "Can you speak about yourself ?")
+		(alien, "Once the humans stopped to worship us like gods and goddess, we decided to come back home. But my spaceship didn't worked and crashed a few seconds after the departure. I had to put myself in cryogenic sleep. Centuries passed before someone come to help me. She decided to leave with me... The end of the travel was a bit... chaotic. I had to kill her to survive.")
+	]
+	next = [ hub]
+}
+
+strange = {
+	conditions = "@Pick !matt_event"
+	lines = [
+		(player, "Did you spot something strange ?")
+		(alien, "Matt seems to hide something. I tried to follow him, but he seems to be uneased with me. Can you watch him for me ?")
+		]
+		effects = ["matt_event"]
+	next = [ hub]
+}
+
+me = {
+	conditions = "!pj"
+	lines = [
+		(player, "What do you think about me ?")
+		(alien, "You seems to be a strange person. Can you explain to me why you are here ?")
+		(player, "I'm a ponymorph. I was in the special forces, but I've been made prisoneer. Sorry, I don't want to speak too much about all this.")
+	]
+	effects = [ "pj" ]
+	next = [hub]
 }

@@ -7,9 +7,9 @@ root = {
 
 act = {
 	lines = [
-		(player, "We might need some rocks.\n\n[ You grab a few rocks. ]")
+		(player, "Wow cool, it looks like some kind of ore.\n\n[ You grab some metal. ]")
 	]
-	effects = [ "-actions[1]", "+rocks[1]", "+rep_matt[4]" ]
+	effects = [ "-actions[1]", "+metal[1]", "+rep_ami[4]" ]
 }
 
 cannot_act = {

@@ -8,7 +8,9 @@ root = {
 welcome = {
 	conditions = "!talked_to_ant"
 	lines = [
-		(ant, "Hello, I'm ant. I'm an ant !")
+		(player, "What ? We were supposed to be the only people on the planet ! Who are you ? Why are you here ?")
+		(ant, "You can't imagine how happy I am to see someone ! I'm on this planet since many days, and I'm blocked here ! My spaceship is broken. But if you help me to fix it, I will give you la lift until the next planet !")
+		(ant, "We would need provision, metal, some screws, and... I'm not sure about the last thing. The way a spaceship works is almost magic for me!")
 	]
 	effects = [ "talked_to_ant" ]
 	next = [ hub ]
@@ -18,24 +20,23 @@ hub = {
 	lines = [
 		(ant, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [ talk, what, regis, kill, goodbye ]
 }
 
 talk = {
 	conditions = "@Pick !talked"
 	lines = [
-		(player, "I'd like to talk.")
-		(ant, "Bla bla...")
+		(player, "Can you speak about yourself ?")
 	]
-	effects =  [ "talked" ]
-	next = [ hub ]
+	next = [ friend33, friend66, friend100 ]
 }
 
 kill = {
 	conditions = "@Pick"
 	lines = [
 		(player, "I'm going to kill you !")
-		(ant, "Aaaarghh !")
+		(ant, "But, why ?!")
+		(exec, "disable ant")
 	]
 	effects = [ "=ant[100]" ]
 }
@@ -54,3 +55,48 @@ dead = {
 		(ant, "I'm dead, I cannot talk !")
 	]
 }
+
+what = {
+	lines =[
+		(player, "What should I do ?")
+		(ant, "I like vegetables...")
+	]
+	next = [ hub]
+}
+
+friend33 = {
+	conditions = "<rep_ant[34]"
+	lines =[
+		(ant, "I need you to escape and you need me for that, that's the only reason we talk to each other.")
+	]
+	next = [hub]
+}
+
+friend66 = {
+	conditions = ">rep_ant[34] AND <rep_ant[67]"
+	lines =[
+		(player, "Can you speak about yourself ?")
+		(ant, "For my people, I'm a princess. I carry their hope of reproduction.")
+	]
+	next = [ hub]
+}
+
+friend100 = {
+	conditions = ">rep_ant[98]"
+	lines = [
+		(player, "Can you speak about yourself ?")
+		(ant, "My mother gave me the great task to spread our people on the whole galaxy. I really hope we will escape, I need to find a proper planet to lay eggs !")
+	]
+	next = [ hub]
+}
+
+regis = {
+	conditions = "@Pick !regis"
+	lines = [
+		(player, "What do you think about Régis ?")
+		(ant, "They seem a bit depressed. They haven't a purpose in their life.")
+	]
+	effects = ["regis"]
+	next = [hub]
+}
+

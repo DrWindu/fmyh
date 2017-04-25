@@ -9,7 +9,7 @@ act = {
 	lines = [
 		(player, "We need some wood.\n\n[ You spend some time cutting wood. ]")
 	]
-	effects = [ "-actions[1]", "+wood[1]" ]
+	effects = [ "-actions[1]", "+wood[1]", "+rep_alien[5]" ]
 }
 
 cannot_act = {

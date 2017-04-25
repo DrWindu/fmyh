@@ -9,7 +9,7 @@ act = {
 	lines = [
 		(player, "That's not perfect, but I guess we can eat that.\n\n[ You harvest a bunch of vegetables. ]")
 	]
-	effects = [ "-actions[1]", "+vegetable[1]" ]
+	effects = [ "-actions[1]", "+vegetable[1]", "+rep_ant[5]" ]
 }
 
 cannot_act = {

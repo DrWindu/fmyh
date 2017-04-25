@@ -8,7 +8,7 @@ root = {
 welcome = {
 	conditions = "!talked_to_matt"
 	lines = [
-		(matt, "Hello, I'm matt. I'm an matt !")
+		(matt, "Hello, I'm matt. I'm an occult scientist !")
 	]
 	effects = [ "talked_to_matt" ]
 	next = [ hub ]
@@ -18,14 +18,14 @@ hub = {
 	lines = [
 		(matt, "What do you want ?")
 	]
-	next = [ talk, kill, goodbye ]
+	next = [ talk, what, queen, kill, event, goodbye ]
 }
 
 talk = {
 	conditions = "@Pick !talked"
 	lines = [
 		(player, "I'd like to talk.")
-		(matt, "Bla bla...")
+		(matt, "We need so much stuff...")
 	]
 	effects =  [ "talked" ]
 	next = [ hub ]
@@ -36,6 +36,7 @@ kill = {
 	lines = [
 		(player, "I'm going to kill you !")
 		(matt, "Aaaarghh !")
+		(exec, "disable matt")
 	]
 	effects = [ "=matt[100]" ]
 }
@@ -53,4 +54,33 @@ dead = {
 	lines = [
 		(matt, "I'm dead, I cannot talk !")
 	]
+}
+
+queen = {
+	conditions = "@Pick !pqueen"
+	lines = [
+		(player, "What do you think about Judith ?")
+		(matt, "She's creepy. Last time I woke up at night, she was speaking to a raw bunny steak while eating it. I could marry her.")
+	]
+	effects = [pqueen]
+	next = [hub]
+}
+
+what = {
+	lines =[
+		(player, "What should I do ?")
+		(matt, "Rocks. We need some rocks.")
+	]
+	next = [ hub]
+}
+
+event = {
+	conditions = "matt_event AND !spell"
+	lines = [
+		(player, "Hey ! What are you doing with... this rabbit ?")
+		(matt, "Oh, it's you, Tim ? I'm just trying to contact Andrew. I really must find him... So, I'm using rabbit blood, since nobody want to give me some.")
+		(player, "You really know some kind of magic ? Could you use it for the spaceship ?")
+		(matt, "It's not how it's supposed to works, but... yeah, I can give a try.")
+	]
+	effects = ["spell"]
 }

@@ -75,7 +75,7 @@ void Game::initialize() {
 	_splashState->initialize();
 	_mainState->initialize();
 
-	_splashState->setup(_mainState.get(), "lair.png", 3);
+	_splashState->setup(_mainState.get(), "title.png", 3);
 }
 
 
